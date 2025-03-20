@@ -1,0 +1,104 @@
+<div class="main-form">
+  <div class="container">
+    <div class="form-container">
+      <h3><i class="fa-solid fa-user"></i> Formulaire d'inscription</h3>
+      <form [formGroup]="mainForm">
+        <!-- Informations Personnelles -->
+        <h5><i class="fa-solid fa-id-card"></i> Informations Personnelles</h5>
+        <div class="infos-personnelles-form" formGroupName="infosPersonnel">
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Nom*:</label>
+              <input type="text" class="form-control" formControlName="firstname"
+                     [class.is-invalid]="firstnameCtrl.invalid && firstnameCtrl.touched">
+              <div class="invalid-feedback" *ngIf="firstnameCtrl.invalid && firstnameCtrl.touched">
+                {{ getControlErrors(firstnameCtrl) }}
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Prénom*:</label>
+              <input type="text" class="form-control" formControlName="lastname" required [class.is-invalid]="lastnameCtrl.invalid && lastnameCtrl.touched">
+              <div class="invalid-feedback" *ngIf="lastnameCtrl.invalid && lastnameCtrl.touched">
+                {{getControlErrors(lastnameCtrl)}}
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Date de Naissance:</label>
+              <input type="date" class="form-control" formControlName="dateDeNaissance" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Adresse:</label>
+              <input type="text" class="form-control" formControlName="adresse" required [class.is-invalid]="adresseCtrl.invalid && adresseCtrl.touched">
+              <div class="invalid-feedback" *ngIf="adresseCtrl.invalid && adresseCtrl.touched">{{getControlErrors(adresseCtrl)}}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Préférence de contact -->
+        <h5><i class="fa-solid fa-phone"></i> Comment préférez-vous être contacté ?</h5>
+        <div class="row mb-3">
+          <div class="col-md-6 form-check">
+            <input class="form-check-input" type="radio" formControlName="contactPreference" value="email">
+            <label class="form-check-label">Email</label>
+          </div>
+          <div class="col-md-6 form-check">
+            <input class="form-check-input" type="radio" formControlName="contactPreference" value="phone">
+            <label class="form-check-label">Téléphone</label>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="email-form" formGroupName="email" *ngIf="showEmailCtrl$ | async">
+          <h5><i class="fa-solid fa-envelope"></i> Email</h5>
+          <div class="mb-3">
+            <label class="form-label">Adresse mail:</label>
+            <input type="email" class="form-control" formControlName="email" required [class.is-invalid]="emailCtrl.invalid && emailCtrl.touched">
+            <div class="invalid-feedback" *ngIf="emailCtrl.invalid && emailCtrl.touched">{{getControlErrors(emailCtrl)}}</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Confirmer votre adresse mail:</label>
+            <input type="email" class="form-control" formControlName="confirmEmail" required [class.is-invalid]="confirmEmailCtrl.invalid && confirmEmailCtrl.touched">
+            <div class="invalid-feedback" *ngIf="confirmEmailCtrl.invalid && confirmEmailCtrl.touched">{{getControlErrors(confirmEmailCtrl)}}</div>
+          </div>
+          <div class="error-text" *ngIf="showEmailError$ | async">Les deux adresses ne correspondent pas</div>
+        </div>
+
+        <!-- Téléphone -->
+        <div class="mb-3" *ngIf="showPhoneCtrl$ | async">
+          <h5><i class="fa-solid fa-mobile"></i> Téléphone</h5>
+          <label class="form-label">Numéro de téléphone:</label>
+          <input type="tel" class="form-control" formControlName="phone" required>
+        </div>
+
+        <!-- Informations de connexion -->
+        <h5><i class="fa-solid fa-user-lock"></i> Informations de connexion</h5>
+        <div class="infos-connexion" formGroupName="infosConnexion">
+          <div class="mb-3">
+            <label class="form-label">Nom d'utilisateur:</label>
+            <input type="text" class="form-control"  required formControlName="username" [class.is-invalid]="usernameCtrl.invalid && usernameCtrl.touched">
+            <div class="invalid-feedback" *ngIf="usernameCtrl.invalid && usernameCtrl.touched">{{getControlErrors(usernameCtrl)}}</div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Mot de passe:</label>
+              <input type="password" class="form-control" formControlName="password" required [class.is-invalid]="passwordCtrl.invalid && passwordCtrl.touched">
+              <div class="invalid-feedback" *ngIf="passwordCtrl.invalid && passwordCtrl.touched">{{getControlErrors(passwordCtrl)}}</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Confirmer le mot de passe:</label>
+              <input type="password" class="form-control" formControlName="confirmPassword" required [class.is-invalid]="confirmPassword.invalid && confirmPassword.touched">
+              <div class="invalid-feedback" *ngIf="confirmPassword.invalid && confirmPassword.touched">{{getControlErrors(confirmPassword)}}</div>
+            </div>
+          </div>
+          <div class="error-text" *ngIf="showPasswordError$ | async">Les deux mots de passe ne correspondent pas</div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()">
+          <i class="fa-solid fa-paper-plane"></i> S'inscrire
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

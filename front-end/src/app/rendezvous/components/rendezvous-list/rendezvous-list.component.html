@@ -1,0 +1,8 @@
+<h2>Listes des rendezvous disponibles</h2>
+<div class="container px-4">
+  <div class="row gx-5">
+    <div class="col-12">
+      <app-rendezvous-list-item class="p-3" *ngFor="let rendezvous of rendezvousList$ | async" [rendezvous]="rendezvous"></app-rendezvous-list-item>
+    </div>
+  </div>
+</div>

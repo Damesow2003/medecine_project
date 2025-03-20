@@ -1,0 +1,78 @@
+<body>
+<div class="container-fluid my-5" >
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block sidebar p-3">
+      <div class="position-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bed"></i> Salles</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-md"></i> Médecins</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-calendar-alt"></i> Rendez-vous</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-credit-card"></i> Paiements</a></li>
+        </ul>
+      </div>
+    </nav>
+    <main class="col-md-10 ms-sm-auto px-md-4">
+      <h1 class="mt-4">Vue d’ensemble</h1>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card text-white bg-primary mb-3">
+            <div class="card-body text-center">
+              <h5 class="card-title">Total Salles</h5>
+              <p class="card-text display-6"><i class="fas fa-bed"></i> 10</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-body text-center">
+              <h5 class="card-title">Total Médecins</h5>
+              <p class="card-text display-6"><i class="fas fa-user-md"></i> 5</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-warning mb-3">
+            <div class="card-body text-center">
+              <h5 class="card-title">Rendez-vous en attente</h5>
+              <p class="card-text display-6"><i class="fas fa-calendar-alt"></i> 3</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-body text-center">
+              <h5 class="card-title">Paiements en attente</h5>
+              <p class="card-text display-6"><i class="fas fa-credit-card"></i> 2</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="mt-4">Liste des salles</h2>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Numéro de salle</th>
+            <th>Statut</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>1</td>
+            <td>101</td>
+            <td>Disponible</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>102</td>
+            <td>Occupée</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+</body>

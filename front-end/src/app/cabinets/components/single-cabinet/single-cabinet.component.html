@@ -1,0 +1,19 @@
+<div class="cabinet-card" *ngIf="cabinet$ | async as cabinet">
+  <h2>{{cabinet.nom | titlecase}}</h2>
+  <img [src]="cabinet.imageUrl" [alt]="cabinet.nom">
+  <p> {{cabinet.adresse}}</p>
+</div>
+<div>
+  <div class="container mt-4">
+    <h5 class=" text-center text-secondary fw-bold mb-3">📅Liste de nos rendez-vous disponibles :</h5>
+    <div class="row">
+    <div *ngFor="let rendezvous of rendezvousList" class="card mb-3 p-3 shadow-sm rounded-3 col-4">
+      <div class="card p-3 shadow-sm" id="rendezvous-card" (click)="onPayRendezvous(rendezvous.id)">
+      <p class="card-text mb-2"><fa-icon [icon]="faCalendarAlt" class="text-primary me-2"></fa-icon><strong>Date:</strong> {{ rendezvous.dateRv }}</p>
+      <p class="card-text mb-2"><fa-icon [icon]="faClock" class="text-success me-2"></fa-icon><strong>Heure:</strong> {{ rendezvous.heureRv }}</p>
+      <p class="card-text mb-2"><fa-icon [icon]="faHourglassHalf" class="me-2"></fa-icon><strong>Durée:</strong> {{ rendezvous.duree }}</p>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>

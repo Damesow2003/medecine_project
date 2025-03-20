@@ -1,0 +1,23 @@
+.rendezvous-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; /* Change le curseur en main */
+}
+
+.rendezvous-card:hover {
+  transform: translateY(-5px); /* Effet de levée au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre plus prononcée au survol */
+}
+
+.card-title {
+  color: #2c3e50; /* Couleur de titre foncée */
+}
+
+.card-text {
+  color: #34495e; /* Couleur de texte légèrement plus claire */
+}
+.selected {
+  background-color: #14ea14 !important;
+  color: white;
+}

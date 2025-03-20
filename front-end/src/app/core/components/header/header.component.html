@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm fixed-top">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold text-primary" routerLink="/">
+      <fa-icon [icon]="faClinicMedical" class="me-2"></fa-icon>Thiellal
+    </a>
+
+    <!-- Bouton de menu responsive -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Liens -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/">
+            <fa-icon [icon]="faHome" class="me-1"></fa-icon>Accueil
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated">
+          <a class="nav-link" (click)="OnAdminProfil()">
+            <fa-icon [icon]="faUserPlus" class="me-1"></fa-icon>Profil
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated">
+          <a class="nav-link" routerLink="/cabinets">
+            <fa-icon [icon]="faHospital" class="me-1"></fa-icon>Hôpital
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isAuthenticated">
+          <a class="nav-link" routerLink="/services">
+            <fa-icon [icon]="faBriefcaseMedical" class="me-1"></fa-icon>Nos Services
+          </a>
+        </li>
+       <!-- <li class="nav-item">
+          <a class="nav-link" routerLink="/rendezvous">
+            <fa-icon [icon]="faCalendarCheck" class="me-1"></fa-icon>Prendre Rendez-vous
+          </a>
+        </li>-->
+        <li class="nav-item"*ngIf="authService.showItem">
+          <a class="nav-link" routerLink="/auth/register">
+            <fa-icon [icon]="faUser" class="me-1"></fa-icon>S'inscrire
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="authService.showItem">
+          <a class="btn btn-primary text-white fw-bold px-4" routerLink="/auth/login" >
+            <fa-icon [icon]="faSignInAlt" class="me-1"></fa-icon>Se connecter
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="!authService.showItem">
+          <a class="btn btn-primary text-white fw-bold px-4" (click)="onLogOut()">Se deconnecter</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

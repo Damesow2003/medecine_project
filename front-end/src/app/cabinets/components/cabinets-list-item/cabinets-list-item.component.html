@@ -1,0 +1,6 @@
+<div class="cabinet-card">
+  <h2>{{cabinet.nom}}</h2>
+  <img [src]="cabinet.imageUrl" [alt]="cabinet.nom">
+  <p>{{cabinet.adresse}}</p>
+  <button (click)="onViewDetails(cabinet.idCabinet)">Details</button>
+</div>
