@@ -1,0 +1,44 @@
+services:
+  mysql:
+    container_name: database-medecine
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: projet_medecine
+      MYSQL_ROOT_PASSWORD: Buhaha2003#
+    ports:
+      - '3307:3306'
+    volumes:
+      - medecine-volume:/var/lib/mysql
+      - ./schema-v2-mpv.sql:/docker-entrypoint-initdb.d/schema-v2-mpv.sql
+    networks:
+      - medecine-network
+
+  api-medecine-back:
+    build:
+      context: medecine_back-end/projetMedecine
+      dockerfile: Dockerfile
+    container_name: api_medecine
+    environment:
+      - DB_URL=jdbc:mysql://database-medecine:3306/projet_medecine?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta&useSSL=false&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_PASSWORD=Buhaha2003#
+      - SPRING_DATASOURCE_USERNAME=root
+    ports:
+      - '9000:9000'
+    networks:
+      - medecine-network
+    depends_on:
+      - mysql
+  medecine-front:
+    build: medecine_front-end
+    container_name: projet_medecine_front
+    ports:
+      - '4000:4000'
+    networks:
+      - medecine-network
+    depends_on:
+      - api-medecine-back
+volumes:
+  medecine-volume:
+networks:
+  medecine-network:
+    driver: bridge
