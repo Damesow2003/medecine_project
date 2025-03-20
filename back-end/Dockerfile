@@ -1,8 +1,12 @@
-FROM eclipse-temurin:17-jdk-focal
+FROM eclipse-temurin:17-jre-focal
+
 WORKDIR /app
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN chmod +x ./mvnw
-RUN ./mvnw dependency:go-offline
-COPY src ./src
-CMD ["./mvnw", "spring-boot:run"]
+
+# Copier le fichier JAR généré
+COPY target/*.jar app.jar
+
+# Exposer le port de l'application
+EXPOSE 9000
+
+# Lancer l'application
+CMD ["java", "-jar", "app.jar"]

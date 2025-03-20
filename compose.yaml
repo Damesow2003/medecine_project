@@ -1,6 +1,8 @@
+version: '3.8'  # Ajout de la version pour éviter l'erreur
+
 services:
   mysql:
-    container_name: database-medecine
+    container_name: medecine-database
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: projet_medecine
@@ -8,37 +10,41 @@ services:
     ports:
       - '3307:3306'
     volumes:
-      - medecine-volume:/var/lib/mysql
+      - volume-medecine:/var/lib/mysql
       - ./schema-v2-mpv.sql:/docker-entrypoint-initdb.d/schema-v2-mpv.sql
     networks:
-      - medecine-network
+      - network-medecine
 
   api-medecine-back:
     build:
-      context: medecine_back-end/projetMedecine
+      context: back-end
       dockerfile: Dockerfile
     container_name: api_medecine
     environment:
-      - DB_URL=jdbc:mysql://database-medecine:3306/projet_medecine?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta&useSSL=false&allowPublicKeyRetrieval=true
+      - DB_URL=jdbc:mysql://medecine-database:3306/projet_medecine?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Jakarta&useSSL=false&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_PASSWORD=Buhaha2003#
       - SPRING_DATASOURCE_USERNAME=root
     ports:
       - '9000:9000'
     networks:
-      - medecine-network
+      - network-medecine
     depends_on:
-      - mysql
+     - mysql
+
   medecine-front:
-    build: medecine_front-end
+    build:
+      context: front-end  # Correction pour la cohérence
     container_name: projet_medecine_front
     ports:
       - '4000:4000'
     networks:
-      - medecine-network
+      - network-medecine
     depends_on:
       - api-medecine-back
+
 volumes:
-  medecine-volume:
+  volume-medecine:
+
 networks:
-  medecine-network:
+  network-medecine:
     driver: bridge
