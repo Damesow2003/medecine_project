@@ -40,10 +40,12 @@ export class HeaderComponent {
 
   OnAdminProfil() {
     if(this.authService.roles.includes("medecin")){
-      this.router.navigateByUrl('/dashbord/cabinet')
-    }else{
+      this.router.navigateByUrl('/dashbord/medecin')
+    }else if(this.authService.roles.includes('patient')){
       this.router.navigateByUrl("/dashbord/patient" +
         "")
+    }else if(this.authService.roles.includes('admin')){
+      this.router.navigateByUrl("/dashbord/cabinet")
     }
 
   }

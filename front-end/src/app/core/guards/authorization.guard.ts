@@ -12,7 +12,7 @@ export class AuthorizationGuard implements CanActivate{
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean{
     const roles = this.authService.roles || []; // Évite `undefined`
 
-    if (roles.includes('medecin')) {
+    if (roles.includes('admin')) {
       return true;
     } else {
       this.router.navigateByUrl('/not-authorized');

@@ -10,6 +10,8 @@ import {AuthentificationModule} from "../authentification/authentification.modul
 import {AuthenticationGuard} from "./guards/authentication.guard";
 import {AuthorizationGuard} from "./guards/authorization.guard";
 import {ShareModule} from "../share/share.module";
+import {MedecinGuard} from "./guards/medecin.guard";
+import {PatientGuard} from "./guards/patient.guard";
 
 
 
@@ -34,7 +36,9 @@ import {ShareModule} from "../share/share.module";
   providers:[
     {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
     AuthenticationGuard,
-    AuthorizationGuard
+    AuthorizationGuard,
+    MedecinGuard,
+    PatientGuard
   ]
 })
 export class CoreModule { }

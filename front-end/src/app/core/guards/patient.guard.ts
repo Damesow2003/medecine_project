@@ -8,7 +8,8 @@ export class PatientGuard implements CanActivate{
   constructor(private authService:AuthentificationService) {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if(this.authService.roles.includes("patient")){
+    const roles = this.authService.roles || [];
+    if(roles.includes("patient")){
      return  true
     }else{
       return false

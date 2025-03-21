@@ -5,11 +5,13 @@ import {AuthorizationGuard} from "../core/guards/authorization.guard";
 import {AuthenticationGuard} from "../core/guards/authentication.guard";
 import {PatientDashbordComponent} from "./components/patient-dashbord/patient-dashbord.component";
 import {MedecineDashbordComponent} from "./components/medecine-dashbord/medecine-dashbord.component";
+import {PatientGuard} from "../core/guards/patient.guard";
+import {MedecinGuard} from "../core/guards/medecin.guard";
 
 const routes: Routes = [
   {path:'cabinet',component:CabinetDashbordComponent,canActivate:[AuthorizationGuard]},
-  {path:'patient',component:PatientDashbordComponent},
-  {path:'medecin',component:MedecineDashbordComponent}
+  {path:'patient',component:PatientDashbordComponent,canActivate:[PatientGuard]},
+  {path:'medecin',component:MedecineDashbordComponent,canActivate:[MedecinGuard]}
 ];
 
 @NgModule({

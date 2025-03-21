@@ -4,6 +4,8 @@ import {HomeComponent} from "./core/components/home/home.component";
 import {AuthenticationGuard} from "./core/guards/authentication.guard";
 import {AuthorizationGuard} from "./core/guards/authorization.guard";
 import {NotAuthorizedComponent} from "./not-authorized/not-authorized.component";
+import {PatientGuard} from "./core/guards/patient.guard";
+import {MedecinGuard} from "./core/guards/medecin.guard";
 
 const routes: Routes = [
   {path:'',component:HomeComponent},

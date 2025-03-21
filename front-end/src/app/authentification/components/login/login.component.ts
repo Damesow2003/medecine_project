@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit{
         console.log(data);
         this.authenficationService.loadProfile(data);
 
-        window.location.href="http://localhost:4000/"
+        window.location.href="http://localhost:4200/"
         //this.router.navigateByUrl('/home')
 
       }),
