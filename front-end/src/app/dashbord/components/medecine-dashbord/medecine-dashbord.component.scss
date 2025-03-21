@@ -1,0 +1,31 @@
+.main-content{
+  background-color: #f4f6f9;
+  padding-top: 50px;
+}
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: #2575fc;
+  color: white;
+  padding: 20px;
+  position: fixed;
+}
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+.sidebar a:hover {
+  background: #1abc9c;
+}
+.content {
+  margin-left: 270px;
+  padding: 20px;
+}
+.card-custom {
+  border-left: 5px solid #1abc9c;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+}
