@@ -1,12 +1,13 @@
-FROM eclipse-temurin:17-jre-focal
+# Étape 1 : Utiliser Maven pour builder le projet
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copier le fichier JAR généré
-COPY target/*.jar app.jar
-
-# Exposer le port de l'application
+# Étape 2 : Utiliser une image plus légère pour exécuter l'application
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 9000
-
-# Lancer l'application
 CMD ["java", "-jar", "app.jar"]
