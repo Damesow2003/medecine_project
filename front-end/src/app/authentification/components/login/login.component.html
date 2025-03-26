@@ -1,4 +1,4 @@
-<div class="min-vh-100 d-flex" [formGroup]="loginForm">
+<div class="min-vh-100 d-flex">
   <!-- Section gauche -->
   <div class="col-md-6 bg-primary text-white d-flex flex-column justify-content-center p-5">
     <h1 class="display-4 fw-bold mb-4">Thiellal, sa "weergu Yaramm si numerique!"</h1>
@@ -12,7 +12,7 @@
 
   <!-- Section droite -->
   <div class="col-md-6 bg-white d-flex align-items-center justify-content-center">
-    <form class="w-75">
+    <form class="w-75"  [formGroup]="loginForm">
       <h2 class="fs-3 fw-bold mb-4">Connexion</h2>
 
       <div class="mb-3">

@@ -16,7 +16,7 @@ export class InscriptionComponent  implements OnInit{
   showEmailError$!:Observable<boolean>;
   showPasswordError$!:Observable<boolean>
   loading$ = true;
-
+  successMessage= '';
 
   mainForm!:FormGroup;
   infosPersonnelForm!:FormGroup;
@@ -33,6 +33,7 @@ export class InscriptionComponent  implements OnInit{
   usernameCtrl!:FormControl;
   passwordCtrl!:FormControl;
   confirmPassword!:FormControl;
+  loading = true;
 
 
   constructor(private formBuilder:FormBuilder,
@@ -88,7 +89,7 @@ export class InscriptionComponent  implements OnInit{
     this.contactPreferenceCtrl = this.formBuilder.control('email');
     this.emailCtrl = this.formBuilder.control('');
     this.confirmEmailCtrl = this.formBuilder.control('');
-    this.phoneCtrl = this.formBuilder.control('',/*[Validators.minLength(9),Validators.maxLength(9)]*/);
+    this.phoneCtrl = this.formBuilder.control('',[Validators.required]);
     this.usernameCtrl = this.formBuilder.control('',[Validators.required])
     this.passwordCtrl = this.formBuilder.control('',[Validators.required]);
     this.confirmPassword = this.formBuilder.control('',[Validators.required]);
@@ -100,7 +101,7 @@ export class InscriptionComponent  implements OnInit{
       map(preference=>preference==='phone'),
       tap(showPhone=>{
         if(showPhone){
-          this.phoneCtrl.addValidators([Validators.maxLength(9), Validators.minLength(9),Validators.required])
+          this.phoneCtrl.addValidators([Validators.required])
         }else{
           this.phoneCtrl.clearValidators();
         }
@@ -138,6 +139,7 @@ export class InscriptionComponent  implements OnInit{
   }
 
   onSubmit() {
+    this.loading = true
     const formValue = this.mainForm.value;
 
     const formattedData = {
@@ -160,10 +162,13 @@ export class InscriptionComponent  implements OnInit{
     this.authService.addPatient(formattedData).pipe(
       tap((saved) => {
         if (saved) {
+          this.loading = false;
+          this.successMessage = "Inscription reussie"
           this.resetForm();
           console.log("Success");
-          this.router.navigateByUrl('/');
+           setTimeout(() =>this.router.navigateByUrl('/'),2000);
         } else {
+          this.loading = true
           console.log("Erreur: l'inscription ne s'est pas déroulée comme prévu !!");
         }
       })

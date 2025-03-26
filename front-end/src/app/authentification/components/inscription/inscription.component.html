@@ -67,7 +67,7 @@
         </div>
 
         <!-- Téléphone -->
-        <div class="mb-3" *ngIf="showPhoneCtrl$ | async">
+        <div class="mb-3"  [hidden]="!(showPhoneCtrl$ | async)">
           <h5><i class="fa-solid fa-mobile"></i> Téléphone</h5>
           <label class="form-label">Numéro de téléphone:</label>
           <input type="tel" class="form-control" formControlName="phone" required>
@@ -95,10 +95,16 @@
           </div>
           <div class="error-text" *ngIf="showPasswordError$ | async">Les deux mots de passe ne correspondent pas</div>
         </div>
-        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()">
+        <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()" [disabled]="mainForm.invalid">
           <i class="fa-solid fa-paper-plane"></i> S'inscrire
         </button>
       </form>
+      <div class="spinner-border text-primary mt-4" role="status" *ngIf="loading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
+  </div>
+  <div class="alert alert-success" *ngIf="successMessage">
+    {{successMessage}}
   </div>
 </div>
