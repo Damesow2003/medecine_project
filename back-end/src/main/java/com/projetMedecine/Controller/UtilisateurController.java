@@ -1,13 +1,9 @@
 package com.projetMedecine.Controller;
 
 
-import com.projetMedecine.Exceptions.ImpossibleAjouterUtilisateur;
 import com.projetMedecine.Exceptions.UtilisateurNotFound;
-import com.projetMedecine.Modele.Medecin;
-import com.projetMedecine.Modele.Patient;
-import com.projetMedecine.Modele.Utilisateur;
-import com.projetMedecine.Modele.UtilisateurRequest;
-import com.projetMedecine.Repository.PatientRepository;
+import com.projetMedecine.Modele.*;
+import com.projetMedecine.Service.AdminService;
 import com.projetMedecine.Service.MedecinService;
 import com.projetMedecine.Service.PatientService;
 import com.projetMedecine.Service.UtilisateurService;
@@ -43,7 +39,8 @@ public class UtilisateurController {
 
     @Autowired
     private PatientService patientService;
-
+    @Autowired
+    private AdminService adminService;
     @Autowired
     private MedecinService medecinService;
     @Autowired
@@ -57,7 +54,8 @@ public class UtilisateurController {
     public Iterable<Medecin> getMedecin(){
         return medecinService.getAllMedecin();
     }
-
+    @GetMapping("/admins")
+    public Iterable<Admin> getAdmins(){return adminService.listAdmin();}
     @GetMapping("/profile")
     public Authentication authentication(Authentication authentication){
         return authentication;

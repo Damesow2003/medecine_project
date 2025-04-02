@@ -8,6 +8,8 @@ import {RendezvousService} from "./services/rendezvous.service";
 import {RendezvousResolver} from "./resolvers/rendezvous.resolver";
 import {ShareModule} from "../share/share.module";
 import { PaiementComponent } from './components/paiement/paiement.component';
+import { NewRendezvousComponent } from './components/new-rendezvous/new-rendezvous.component';
+import {CabinetService} from "../cabinets/services/cabinet.service";
 
 
 
@@ -15,7 +17,8 @@ import { PaiementComponent } from './components/paiement/paiement.component';
   declarations: [
     RendezvousListComponent,
     RendezvousListItemComponent,
-    PaiementComponent
+    PaiementComponent,
+    NewRendezvousComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +31,8 @@ import { PaiementComponent } from './components/paiement/paiement.component';
     ],
   providers: [
     RendezvousService,
-    RendezvousResolver
+    RendezvousResolver,
+    CabinetService
   ]
 })
 export class RendezvousModule { }

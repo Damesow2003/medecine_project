@@ -14,7 +14,7 @@ public class RendezvousProxy {
     private String dateRv;
     private String heureRv;
     private int duree;
-  //  private List<Long> idNotification;
+    //private List<Long> idNotification;
     //private List<Long> idPrescription;
     //private Long idPaiement;
 
@@ -25,7 +25,6 @@ public class RendezvousProxy {
         this.dateRv = dateRv;
         this.heureRv = heureRv;
         this.duree = duree;
-
         //this.idPaiement = idPaiement;
         this.idCabinet = idCabinet;
     }

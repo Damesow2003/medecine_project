@@ -18,7 +18,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="id_utilisateur")
 @DynamicUpdate
 public class Medecin extends Utilisateur {
-
     Long matricule;
     String specialite;
     @OneToMany(

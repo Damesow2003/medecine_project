@@ -1,0 +1,85 @@
+<body>
+<div class="container">
+    <div class="row">
+        <!-- Formulaire pour ajouter un rendez-vous -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-calendar-plus"></i> Ajouter un Rendez-vous
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="dateRv">Date du Rendez-vous</label>
+                            <input type="date" class="form-control" id="dateRv">
+                        </div>
+                        <div class="form-group">
+                            <label for="heureRv">Heure du Rendez-vous</label>
+                            <input type="time" class="form-control" id="heureRv">
+                        </div>
+                        <div class="form-group">
+                            <label for="duree">Durée (en minutes)</label>
+                            <input type="number" class="form-control" id="duree" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="idCabinet">Cabinet Médical</label>
+                            <select class="form-control" id="idCabinet">
+                                <option value="1">Cabinet A</option>
+                                <option value="2">Cabinet B</option>
+                                <option value="3">Cabinet C</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">
+                            <i class="fas fa-save"></i> Enregistrer
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Liste des rendez-vous -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-calendar-alt"></i> Liste des Rendez-vous
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Durée</th>
+                            <th>Cabinet</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let rendezvous of rendezvousList">
+                            <!--<td>1</td>
+                            <td>2025-03-28</td>
+                            <td>14:30</td>
+                            <td>30</td>
+                            <td>Cabinet A</td>
+                            <td>-->
+                            <td>{{rendezvous.id}}</td>
+                            <td>{{rendezvous.dateRv}}</td>
+                            <td>{{rendezvous.heureRv}}</td>
+                            <td>{{rendezvous.duree}}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </button>
+                                <button class="btn btn-danger btn-sm">
+                                    <i class="fas fa-trash-alt"></i> Supprimer
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

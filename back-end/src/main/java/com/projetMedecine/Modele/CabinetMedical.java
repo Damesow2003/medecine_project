@@ -46,4 +46,12 @@ public class CabinetMedical {
    @JsonManagedReference
    //@JoinColumn(name="id_cabinet")
     private List<Rendezvous> rendezvousList = new ArrayList<>();
+
+   @OneToOne(
+           cascade = CascadeType.ALL,
+           fetch = FetchType.EAGER,
+           mappedBy = "cabinetMedical"
+   )
+    @JsonManagedReference
+    private Admin admin;
 }

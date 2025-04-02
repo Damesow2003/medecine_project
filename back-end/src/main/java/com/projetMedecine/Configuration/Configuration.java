@@ -72,7 +72,7 @@ public class Configuration {
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth.requestMatchers("/auth/login/**").permitAll())
                 /*.authorizeHttpRequests(auth->auth.requestMatchers("/auth/login/signup").permitAll())*/
-                //.authorizeHttpRequests(auth->auth.requestMatchers("**").permitAll())
+                .authorizeHttpRequests(auth->auth.requestMatchers("**").permitAll())
                 .authorizeHttpRequests(auth->auth.anyRequest().authenticated())
                 //.httpBasic(Customizer.withDefaults())
                 .cors(Customizer.withDefaults())
