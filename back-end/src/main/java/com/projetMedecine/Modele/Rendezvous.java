@@ -79,7 +79,7 @@ public class Rendezvous {
             },
             fetch = FetchType.LAZY
     )
-    @JoinColumn(name="id_patient`")
+    @JoinColumn(name="id_patient")
     @JsonBackReference
     private Patient patient;
 

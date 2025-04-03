@@ -19,10 +19,9 @@ public class Admin extends Utilisateur{
     @Column(name="id_admin")
     private Long idAdmin;
     @OneToOne(
-            cascade = CascadeType.ALL,
-            fetch= FetchType.LAZY
+            fetch= FetchType.EAGER
     )
-    @JsonBackReference
     @JoinColumn(name="id_cabinet")
+    @JsonBackReference
     private CabinetMedical cabinetMedical;
 }

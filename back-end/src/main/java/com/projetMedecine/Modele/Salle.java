@@ -36,7 +36,7 @@ public class Salle {
     private CabinetMedical cabinetMedical;
 
     @OneToMany(
-            fetch= FetchType.EAGER,
+            fetch= FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "salle"
     )

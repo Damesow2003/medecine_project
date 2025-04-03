@@ -33,7 +33,7 @@ public class CabinetMedical {
 
    @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             mappedBy = "cabinetMedical"
    )
     @JsonManagedReference
