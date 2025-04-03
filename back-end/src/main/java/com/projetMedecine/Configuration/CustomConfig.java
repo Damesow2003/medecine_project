@@ -22,7 +22,7 @@ public class CustomConfig implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Utilisateur dbUser = utilisateurRepository.findByUsername(username);
 
-        return new User(dbUser.getEmail(), dbUser.getPassword(),getGrantedAuthority(dbUser.getRole()));
+        return new User(dbUser.getUsername(), dbUser.getPassword(),getGrantedAuthority(dbUser.getRole()));
     }
 
     private List<GrantedAuthority> getGrantedAuthority(String role){
