@@ -49,7 +49,7 @@ public class CabinetMedical {
 
    @OneToOne(
            cascade = CascadeType.ALL,
-           fetch = FetchType.EAGER,
+           fetch = FetchType.LAZY,
            mappedBy = "cabinetMedical"
    )
     @JsonManagedReference
