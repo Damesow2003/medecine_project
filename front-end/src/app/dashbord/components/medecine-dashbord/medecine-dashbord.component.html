@@ -1,35 +1,116 @@
-<div class="main-content mt-8 my-10">
-    <div class="sidebar">
-        <h3><i class="fas fa-user-md"></i> Espace Médecin</h3>
-        <a><i class="fas fa-home"></i> Dashboard</a>
-        <a><i class="fas fa-calendar-check"></i> Mes Rendez-vous</a>
-        <a><i class="fas fa-notes-medical"></i> Prescriptions</a>
-        <a><i class="fas fa-users"></i> Mes Patients</a>
-        <a><i class="fas fa-bell"></i> Notifications</a>
-    </div>
-
-    <div class="header">Tableau de Bord du Médecin</div>
-
-    <div class="content">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-custom p-4">
-                    <h5><i class="fas fa-user-injured"></i> Nombre de Patients</h5>
-                    <p class="display-4">85</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-custom p-4">
-                    <h5><i class="fas fa-calendar-alt"></i> Rendez-vous Aujourd’hui</h5>
-                    <p class="display-4">5</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-custom p-4">
-                    <h5><i class="fas fa-prescription-bottle-alt"></i> Prescriptions</h5>
-                    <p class="display-4">30</p>
+<div class="dashboard-container my-5">
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-user-md me-2"></i> Espace Médecin</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a href="#"><i class="fas fa-home fa-fw me-3"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-calendar-check fa-fw me-3"></i> Mes Rendez-vous</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-notes-medical fa-fw me-3"></i> Prescriptions</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-users fa-fw me-3"></i> Mes Patients</a>
+            </li>
+            <li>
+                <a href="#"><i class="fas fa-bell fa-fw me-3"></i> Notifications</a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Photo médecin" class="profile-img">
+                <div class="profile-info">
+                    <span class="name">Dr. Diallo</span>
+                    <span class="role">Cardiologue</span>
                 </div>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1><i class="fas fa-tachometer-alt me-3"></i> Tableau de Bord</h1>
+            <div class="header-actions">
+                <button class="btn btn-notification">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </button>
+                <button class="btn btn-profile">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <!-- Stat Card 1 -->
+            <div class="stat-card patient-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Patients</h3>
+                    <span class="stat-value">85</span>
+                    <span class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> 12% ce mois
+          </span>
+                </div>
+            </div>
+
+            <!-- Stat Card 2 -->
+            <div class="stat-card appointment-card">
+                <div class="card-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Rendez-vous</h3>
+                    <span class="stat-value">5</span>
+                    <span class="stat-change">
+            <i class="fas fa-clock"></i> 2 en attente
+          </span>
+                </div>
+            </div>
+
+            <!-- Stat Card 3 -->
+            <div class="stat-card prescription-card">
+                <div class="card-icon">
+                    <i class="fas fa-prescription-bottle-alt"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Prescriptions</h3>
+                    <span class="stat-value">30</span>
+                    <span class="stat-change positive">
+            <i class="fas fa-arrow-up"></i> 8% ce mois
+          </span>
+                </div>
+            </div>
+
+            <!-- Stat Card 4 -->
+            <div class="stat-card revenue-card">
+                <div class="card-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div class="card-content">
+                    <h3>Revenus</h3>
+                    <span class="stat-value">12,450 XOF</span>
+                    <span class="stat-change negative">
+            <i class="fas fa-arrow-down"></i> 5% ce mois
+          </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments -->
+        <div class="appointments-section">
+            <h2 class="section-title"><i class="fas fa-calendar-day me-2"></i> Rendez-vous à venir</h2>
+            <div class="appointments-list">
+                <!-- Appointment items would go here -->
+            </div>
+        </div>
+    </main>
 </div>

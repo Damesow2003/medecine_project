@@ -20,12 +20,12 @@ public class Patient  extends Utilisateur{
 
     @Column(name="id_patient")
     private long idPatient;
-    @OneToMany(
+  /*  @OneToMany(
             cascade=CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "patient"
     )
     @JsonManagedReference
-    private List<Rendezvous> rendezvousList = new ArrayList<>();
+    private List<Rendezvous> rendezvousList = new ArrayList<>();*/
 
 }

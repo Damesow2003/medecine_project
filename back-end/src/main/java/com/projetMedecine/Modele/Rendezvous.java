@@ -72,7 +72,7 @@ public class Rendezvous {
     @JsonBackReference
     private Traitement traitement;
 
-    @ManyToOne(
+   /* @ManyToOne(
             cascade = {
                     CascadeType.MERGE,
                     CascadeType.PERSIST
@@ -81,7 +81,7 @@ public class Rendezvous {
     )
     @JoinColumn(name="id_patient")
     @JsonBackReference
-    private Patient patient;
+    private Patient patient;*/
 
     //methode Utilitaire Notification(helpers methode)
 

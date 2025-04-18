@@ -1,11 +1,425 @@
-.sidebar {
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  overflow-y: auto;
+// Variables
+$primary: #2575fc;
+$secondary: #1abc9c;
+$danger: #e74c3c;
+$light: #f8f9fa;
+$dark: #2c3e50;
+
+// Animations
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Base Styles
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Sidebar Styles
+.sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, $primary 0%, darken($primary, 10%) 100%);
+  color: white;
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+
+  .sidebar-header {
+    padding: 0 20px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    .sidebar-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 1.25rem;
+    }
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 20px 0;
+    margin: 0;
+
+    li {
+      margin: 5px 0;
+      position: relative;
+
+      a {
+        color: rgba(255,255,255,0.8);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 0 30px 30px 0;
+        margin-right: 20px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: white;
+          background: rgba(255,255,255,0.1);
+          transform: translateX(5px);
+        }
+
+        .badge {
+          margin-left: auto;
+          background: $danger;
+          color: white;
+          border-radius: 10px;
+          padding: 2px 8px;
+          font-size: 0.75rem;
+        }
+      }
+
+      &.active a {
+        color: white;
+        background: rgba(255,255,255,0.2);
+        font-weight: 500;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 4px;
+          background: $secondary;
+        }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: auto;
+
+    .logout-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba($danger, 0.2);
+        color: lighten($danger, 10%);
+      }
+    }
+  }
+}
+
+// Main Content Styles
 .main-content {
-  margin-left: 250px;
+  flex: 1;
+  margin-left: 280px;
+  padding: 30px;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out;
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+
+    .welcome-title {
+      font-weight: 600;
+      color: $dark;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      font-size: 1.75rem;
+
+      .patient-name {
+        color: $primary;
+        margin-left: 5px;
+      }
+    }
+
+    .header-date {
+      color: #7f8c8d;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+// Stats Grid
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .card-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    font-size: 28px;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .card-content {
+    flex: 1;
+
+    h3 {
+      font-size: 16px;
+      color: #7f8c8d;
+      margin: 0 0 5px;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: $dark;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .stat-time, .stat-detail {
+      font-size: 14px;
+      color: #7f8c8d;
+      display: block;
+    }
+
+    .card-link {
+      color: $primary;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: darken($primary, 10%);
+
+        i {
+          transform: translateX(3px);
+        }
+      }
+
+      i {
+        margin-left: 5px;
+        transition: all 0.3s ease;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+
+    &.urgent {
+      background: rgba($danger, 0.1);
+      color: $danger;
+    }
+  }
+
+  .notification-dot {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $danger;
+    box-shadow: 0 0 0 rgba($danger, 0.4);
+
+    &.pulse {
+      animation: pulse 2s infinite;
+    }
+  }
+
+  // Card Types
+  &.appointment-card .card-icon {
+    background: linear-gradient(45deg, $primary, lighten($primary, 15%));
+  }
+
+  &.prescription-card .card-icon {
+    background: linear-gradient(45deg, $secondary, lighten($secondary, 15%));
+  }
+
+  &.notification-card .card-icon {
+    background: linear-gradient(45deg, #f39c12, lighten(#f39c12, 15%));
+  }
+}
+
+// Appointments Section
+.appointments-section {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-top: 30px;
+
+  .section-title {
+    font-size: 1.25rem;
+    color: $dark;
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+// Responsive Styles
+@media (max-width: 992px) {
+  .sidebar {
+    width: 80px;
+    overflow: hidden;
+    padding: 20px 5px;
+
+    .sidebar-header h2 span,
+    .sidebar-menu li a span,
+    .logout-btn span {
+      display: none;
+    }
+
+    .sidebar-menu li a {
+      justify-content: center;
+      margin-right: 0;
+      padding: 12px 5px;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      margin: 5px auto;
+
+      i {
+        margin-right: 0;
+        font-size: 20px;
+      }
+
+      .badge {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        margin: 0;
+      }
+    }
+
+    .sidebar-footer {
+      padding: 10px 5px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .main-content {
+    margin-left: 80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 20px 15px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .header-date {
+      margin-top: 10px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: 250px;
+    padding: 20px;
+
+    &.show {
+      transform: translateX(0);
+    }
+
+    .sidebar-header h2 span,
+    .sidebar-menu li a span,
+    .logout-btn span {
+      display: inline;
+    }
+
+    .sidebar-menu li a {
+      justify-content: flex-start;
+      margin-right: 20px;
+      padding: 12px 20px;
+      border-radius: 0 30px 30px 0;
+      width: auto;
+      height: auto;
+
+      i {
+        margin-right: 15px;
+        font-size: 16px;
+      }
+
+      .badge {
+        position: static;
+        margin-left: auto;
+      }
+    }
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  // Add mobile menu toggle button in your component
 }

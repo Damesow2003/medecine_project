@@ -1,84 +1,106 @@
 <!-- Slider Area -->
-<section class="slider">
-  <div class="hero-slider">
-    <!-- Start Single Slider -->
-    <div class="single-slider" style="background-image:url('/assets/img/slider3.jpg')">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7">
-            <div class="text">
-              <h1>Bienvenue sur <span>Thiellal</span> Qu'est-ce qu'on peut <span>Faire!</span></h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
-              <div class="button">
-                <a routerLink="/cabinets" class="btn">Prendre un Rendez-vous</a>
-                <a href="#" class="btn primary">Contactez-nous</a>
-              </div>
+<section class="hero-section">
+    <div class="hero-slider">
+        <!-- Start Single Slider -->
+        <div class="hero-slide" style="background-image:url('/assets/img/slider3.jpg')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-7">
+                        <div class="hero-content">
+                            <h1>Bienvenue sur <span>Thiellal</span> Qu'est-ce qu'on peut <span>Faire!</span></h1>
+                            <p class="lead">Simplifiez votre accès aux soins médicaux avec notre plateforme innovante de prise de rendez-vous en ligne.</p>
+                            <div class="hero-buttons">
+                                <a routerLink="/cabinets" class="btn btn-primary btn-lg rounded-pill">
+                                    <i class="fas fa-calendar-check fa-fw me-2"></i>Prendre un Rendez-vous
+                                </a>
+                                <a href="#" class="btn btn-outline-light btn-lg rounded-pill ms-3">
+                                    <i class="fas fa-headset fa-fw me-2"></i>Contactez-nous
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        <!-- End Single Slider -->
     </div>
-    <!-- End Single Slider -->
-  </div>
 </section>
-<!--/ End Slider Area -->
-<!--/ End Slider Area -->
-<section class="schedule">
-  <div class="container">
-    <div class="schedule-inner">
-      <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 ">
-          <!-- single-schedule -->
-          <div class="single-schedule first">
-            <div class="inner">
-              <div class="icon">
-                <i class="fa fa-ambulance"></i>
-              </div>
-              <div class="single-content">
-                <h4>Cas D'urgences</h4>
-                <p>Lorem ipsum sit amet consectetur adipiscing elit. Vivamus et erat in lacus convallis sodales.</p>
-                <a href="#">En SAVOIR PLUS<i class="fa fa-long-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-12">
-          <!-- single-schedule -->
-          <div class="single-schedule middle">
-            <div class="inner">
-              <div class="icon">
-                <i class="icofont-prescription"></i>
-              </div>
-              <div class="single-content">
-                <h4>Horaires des medecins</h4>
-                <p>Lorem ipsum sit amet consectetur adipiscing elit. Vivamus et erat in lacus convallis sodales.</p>
-                <a href="#">EN SAVOIR PLUS<i class="fa fa-long-arrow-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-12 col-12">
-          <!-- single-schedule -->
-          <div class="single-schedule last">
-            <div class="inner">
-              <div class="icon">
-                <i class="icofont-ui-clock"></i>
-              </div>
-              <div class="single-content">
-                <h4>Horaires D'ouverture</h4>
-                <ul class="time-sidual">
-                  <li class="day">Lundi - Vendredi <span>8.00-20.00</span></li>
-                  <li class="day">Samedi<span>9.00-18.30</span></li>
-                  <li class="day">Mardi - Jeudi <span>9.00-15.00</span></li>
-                </ul>
-                <a href="#">EN SAVOIR PLUS<i class="fa fa-long-arrow-right"></i></a>
 
-              </div>
+<!-- Services Cards -->
+
+<!-- Services Cards -->
+<section class="services-section py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <!-- Emergency Card -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="service-card emergency">
+                    <div class="card-body">
+                        <div class="service-icon">
+                            <i class="fas fa-ambulance fa-3x"></i>
+                        </div>
+                        <h3 class="service-title">Cas D'urgences</h3>
+                        <p class="service-text">Lorem ipsum sit amet consectetur adipiscing elit. Vivamus et erat in lacus convallis sodales.</p>
+                        <a href="#" class="service-link">
+                            EN SAVOIR PLUS <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    <div class="service-bg-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            <!-- Doctors Schedule Card -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="service-card doctors">
+                    <div class="card-body">
+                        <div class="service-icon">
+                            <i class="fas fa-user-md fa-3x"></i>
+                        </div>
+                        <h3 class="service-title">Horaires Des Medecins</h3>
+                        <p class="service-text">Lorem ipsum sit amet consectetur adipiscing elit. Vivamus et erat in lacus convallis sodales.</p>
+                        <a href="#" class="service-link">
+                            EN SAVOIR PLUS <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    <div class="service-bg-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Opening Hours Card -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="service-card hours">
+                    <div class="card-body">
+                        <div class="service-icon">
+                            <i class="fas fa-clock fa-3x"></i>
+                        </div>
+                        <h3 class="service-title">Horaires D'ouverture</h3>
+                        <div class="opening-hours-table">
+                            <div class="hours-row">
+                                <span class="day">Lundi - Vendredi</span>
+                                <span class="time">8.00-20.00</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="day">Samedi</span>
+                                <span class="time">9.00-18.30</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="day">Mardi - Jeudi</span>
+                                <span class="time">9.00-15.00</span>
+                            </div>
+                        </div>
+                        <a href="#" class="service-link">
+                            EN SAVOIR PLUS <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    <div class="service-bg-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
-<!--/End Start schedule Area -->
