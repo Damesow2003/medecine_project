@@ -96,12 +96,10 @@
           <div class="error-text" *ngIf="showPasswordError$ | async">Les deux mots de passe ne correspondent pas</div>
         </div>
         <button type="submit" class="btn btn-primary w-100" (click)="onSubmit()" [disabled]="mainForm.invalid">
-          <i class="fa-solid fa-paper-plane"></i> S'inscrire
+         <ng-container *ngIf="loading">Enregistrer</ng-container>
+          <span class="spinner-border spinner-border-sm" *ngIf="!loading"></span>
         </button>
       </form>
-      <div class="spinner-border text-primary mt-4" role="status" *ngIf="loading">
-        <span class="visually-hidden">Loading...</span>
-      </div>
     </div>
   </div>
   <div class="alert alert-success" *ngIf="successMessage">

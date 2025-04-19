@@ -25,4 +25,5 @@ export class NewRendezvousComponent implements OnInit{
         })
     ).subscribe()
   }
+
 }
