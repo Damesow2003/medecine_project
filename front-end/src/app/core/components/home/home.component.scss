@@ -8,7 +8,6 @@
     min-height: 600px;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     position: relative;
@@ -20,7 +19,6 @@
       left: 0;
       width: 100%;
       height: 100%;
-    //  background: linear-gradient(90deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 100%);
     }
   }
 
@@ -29,7 +27,6 @@
     z-index: 2;
     color: black;
     padding: 2rem;
-
 
     h1 {
       font-size: 2.5rem;
@@ -66,7 +63,6 @@
 
       &:hover {
         transform: translateY(-3px);
-       // box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       }
     }
 
@@ -75,15 +71,13 @@
       border-color: #1A76D1;
 
       &:hover {
-        background-color: darken(#1A76D1, 10%);
+        background-color: #1462b3;
       }
     }
 
-    .btn-outline-light {
-      &:hover {
-        color: #1A76D1;
-        background-color: white;
-      }
+    .btn-outline-light:hover {
+      color: #1A76D1;
+      background-color: white;
     }
   }
 
@@ -113,15 +107,10 @@
 }
 
 /* Services Section */
-/* Services Section */
 .services-section {
   position: relative;
   z-index: 10;
   padding: 4rem 0;
-
-  .container {
-    position: relative;
-  }
 }
 
 .service-card {
@@ -130,8 +119,6 @@
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  border: none;
-  position: relative;
   background: white;
 
   &:hover {
@@ -148,7 +135,6 @@
   .service-icon {
     color: #1A76D1;
     margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
   }
 
   .service-title {
@@ -156,7 +142,6 @@
     font-weight: 700;
     margin-bottom: 1.2rem;
     color: #2C2D3F;
-    position: relative;
 
     &::after {
       content: '';
@@ -205,10 +190,9 @@
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    transition: all 0.3s ease;
 
     &:hover {
-      color: darken(#1A76D1, 15%);
+      color: #1462b3;
 
       i {
         transform: translateX(5px);
@@ -228,7 +212,6 @@
     font-size: 5rem;
     color: rgba(26, 118, 209, 0.05);
     z-index: 1;
-    transition: all 0.4s ease;
   }
 
   &:hover .service-bg-icon {
@@ -236,7 +219,6 @@
     color: rgba(26, 118, 209, 0.08);
   }
 
-  /* Card Specific Styles */
   &.emergency {
     .service-icon, .service-title::after, .service-link {
       color: #FF5252;
@@ -263,10 +245,6 @@
     .service-bg-icon {
       color: rgba(76, 175, 80, 0.05);
     }
-
-    &:hover .service-bg-icon {
-      color: rgba(76, 175, 80, 0.08);
-    }
   }
 
   &.hours {
@@ -276,10 +254,6 @@
 
     .service-bg-icon {
       color: rgba(103, 58, 183, 0.05);
-    }
-
-    &:hover .service-bg-icon {
-      color: rgba(103, 58, 183, 0.08);
     }
   }
 }

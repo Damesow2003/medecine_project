@@ -2,47 +2,32 @@
 $primary: #2575fc;
 $secondary: #1abc9c;
 $dark: #2c3e50;
-$light: #f8f9fa;
 $success: #2ecc71;
 $danger: #e74c3c;
 $warning: #f39c12;
 $info: #3498db;
-
-// Mixins
-@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
-  transition: $property $duration $timing;
-}
 
 // Base Styles
 .dashboard-container {
   display: flex;
   min-height: 100vh;
   background-color: #f4f6f9;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 // Sidebar Styles
 .sidebar {
   width: 280px;
-  background: linear-gradient(135deg, $primary 0%, darken($primary, 10%) 100%);
+  background: linear-gradient(135deg, $primary 0%, #1e66e0 100%);
   color: white;
   padding: 20px 0;
   position: fixed;
   height: 100vh;
   z-index: 1000;
   box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-  @include transition;
 
   .sidebar-header {
     padding: 0 20px 20px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-
-    h3 {
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      margin: 0;
-    }
   }
 
   .sidebar-menu {
@@ -52,7 +37,6 @@ $info: #3498db;
 
     li {
       margin: 5px 0;
-      position: relative;
 
       a {
         color: rgba(255,255,255,0.8);
@@ -62,17 +46,14 @@ $info: #3498db;
         text-decoration: none;
         border-radius: 0 30px 30px 0;
         margin-right: 20px;
-        @include transition;
 
         &:hover {
           color: white;
           background: rgba(255,255,255,0.1);
-          transform: translateX(5px);
         }
 
         i {
           width: 24px;
-          text-align: center;
         }
       }
 
@@ -97,45 +78,22 @@ $info: #3498db;
   .sidebar-footer {
     padding: 20px;
     border-top: 1px solid rgba(255,255,255,0.1);
-    margin-top: auto;
 
-    .user-profile {
-      display: flex;
-      align-items: center;
-
-      .profile-img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 10px;
-        border: 2px solid rgba(255,255,255,0.3);
-      }
-
-      .profile-info {
-        display: flex;
-        flex-direction: column;
-
-        .name {
-          font-weight: 500;
-          font-size: 14px;
-        }
-
-        .role {
-          font-size: 12px;
-          opacity: 0.8;
-        }
-      }
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      border: 2px solid rgba(255,255,255,0.3);
     }
   }
 }
 
-// Main Content Styles
+// Main Content
 .main-content {
   flex: 1;
   margin-left: 280px;
   padding: 30px;
-  @include transition;
 
   .page-header {
     display: flex;
@@ -145,52 +103,26 @@ $info: #3498db;
     padding-bottom: 20px;
     border-bottom: 1px solid #eee;
 
-    h1 {
-      font-weight: 600;
-      color: $dark;
-      margin: 0;
+    .btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-    }
+      justify-content: center;
+      background: white;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 
-    .header-actions {
-      display: flex;
-      gap: 10px;
-
-      .btn {
-        width: 40px;
-        height: 40px;
+      .badge {
+        top: -5px;
+        right: -5px;
+        background: $danger;
+        color: white;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        background: white;
-        border: none;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        @include transition;
-
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-
-        &.btn-notification {
-          .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: $danger;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-        }
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
       }
     }
   }
@@ -211,12 +143,6 @@ $info: #3498db;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
-  @include transition;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-  }
 
   .card-icon {
     width: 60px;
@@ -230,58 +156,39 @@ $info: #3498db;
     color: white;
   }
 
-  .card-content {
-    flex: 1;
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+  }
 
-    h3 {
-      font-size: 16px;
-      color: #7f8c8d;
-      margin: 0 0 5px;
-      font-weight: 500;
+  .stat-change {
+    font-size: 12px;
+
+    &.positive {
+      color: $success;
     }
 
-    .stat-value {
-      font-size: 24px;
-      font-weight: 700;
-      color: $dark;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .stat-change {
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-
-      i {
-        margin-right: 5px;
-      }
-
-      &.positive {
-        color: $success;
-      }
-
-      &.negative {
-        color: $danger;
-      }
+    &.negative {
+      color: $danger;
     }
   }
 
-  // Card Types
   &.patient-card .card-icon {
-    background: linear-gradient(45deg, $info, lighten($info, 15%));
+    background: linear-gradient(45deg, $info, #4fa3e3);
   }
 
   &.appointment-card .card-icon {
-    background: linear-gradient(45deg, $warning, lighten($warning, 15%));
+    background: linear-gradient(45deg, $warning, #f5b041);
   }
 
   &.prescription-card .card-icon {
-    background: linear-gradient(45deg, $success, lighten($success, 15%));
+    background: linear-gradient(45deg, $success, #48d68f);
   }
 
   &.revenue-card .card-icon {
-    background: linear-gradient(45deg, #9b59b6, lighten(#9b59b6, 15%));
+    background: linear-gradient(45deg, #9b59b6, #af7ac5);
   }
 }
 
@@ -291,28 +198,13 @@ $info: #3498db;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-
-  .section-title {
-    font-size: 18px;
-    color: $dark;
-    margin: 0 0 20px;
-    display: flex;
-    align-items: center;
-  }
 }
 
 // Responsive Styles
 @media (max-width: 992px) {
   .sidebar {
     width: 80px;
-    overflow: hidden;
     padding: 20px 5px;
-
-    .sidebar-header h3 span,
-    .sidebar-menu li a span,
-    .user-profile .profile-info {
-      display: none;
-    }
 
     .sidebar-menu li a {
       justify-content: center;
@@ -327,12 +219,6 @@ $info: #3498db;
         margin-right: 0;
         font-size: 20px;
       }
-    }
-
-    .sidebar-footer {
-      padding: 10px 5px;
-      display: flex;
-      justify-content: center;
     }
   }
 
@@ -354,36 +240,10 @@ $info: #3498db;
 @media (max-width: 576px) {
   .sidebar {
     transform: translateX(-100%);
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1000;
     width: 250px;
-    padding: 20px;
 
     &.show {
       transform: translateX(0);
-    }
-
-    .sidebar-header h3 span,
-    .sidebar-menu li a span,
-    .user-profile .profile-info {
-      display: block;
-    }
-
-    .sidebar-menu li a {
-      justify-content: flex-start;
-      margin-right: 20px;
-      padding: 12px 20px;
-      border-radius: 0 30px 30px 0;
-      width: auto;
-      height: auto;
-
-      i {
-        margin-right: 15px;
-        font-size: 16px;
-      }
     }
   }
 
@@ -394,6 +254,4 @@ $info: #3498db;
   .stats-grid {
     grid-template-columns: 1fr;
   }
-
-  // Mobile menu toggle button would be added in real implementation
 }
