@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {RendezvousModel} from "../modeles/rendezvous.model";
 import {catchError, Observable, of} from "rxjs";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.development";
 import {PaiementModel} from "../modeles/paiement.model";
 
 @Injectable()

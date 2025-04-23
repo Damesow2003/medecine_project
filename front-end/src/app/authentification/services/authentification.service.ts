@@ -1,7 +1,7 @@
 import {Inject, Injectable, PLATFORM_ID} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {catchError, map, Observable, of} from "rxjs";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../environments/environment.development";
 import {PatientModel} from "../modeles/patient.model";
 import {FormControl} from "@angular/forms";
 import {jwtDecode} from "jwt-decode";

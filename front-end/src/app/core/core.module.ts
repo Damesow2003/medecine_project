@@ -12,6 +12,8 @@ import {AuthorizationGuard} from "./guards/authorization.guard";
 import {ShareModule} from "../share/share.module";
 import {MedecinGuard} from "./guards/medecin.guard";
 import {PatientGuard} from "./guards/patient.guard";
+import {CoreService} from "./services/core.service";
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
@@ -19,26 +21,30 @@ import {PatientGuard} from "./guards/patient.guard";
     declarations: [
         HomeComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        LoadingComponent
     ],
-  exports: [
-    HomeComponent,
-    HeaderComponent,
-    FooterComponent
-  ],
+    exports: [
+        HomeComponent,
+        HeaderComponent,
+        FooterComponent,
+        LoadingComponent
+    ],
     imports: [
         CommonModule,
         ShareModule,
         RouterModule,
         HttpClientModule,
-        AuthentificationModule
+        AuthentificationModule,
+
     ],
   providers:[
     {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
     AuthenticationGuard,
     AuthorizationGuard,
     MedecinGuard,
-    PatientGuard
+    PatientGuard,
+      CoreService
   ]
 })
 export class CoreModule { }
