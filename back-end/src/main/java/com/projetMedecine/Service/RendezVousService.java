@@ -79,8 +79,14 @@ public class RendezVousService {
         }
         return updatedRendezvous;
     }
-    public void deleteRendezvous(long id){
-        rendezVousRepository.deleteById(id);
+    public boolean deleteRendezvousById(long id){
+        if(this.rendezVousRepository.existsById(id)){
+            rendezVousRepository.deleteById(id);
+            return true;
+
+        }else{
+            return false;
+        }
     }
 
   /*  public List<CabinetRendezvous> getCabinetRendezvous(long cabinetId){

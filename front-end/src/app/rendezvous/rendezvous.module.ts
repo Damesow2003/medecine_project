@@ -10,6 +10,7 @@ import {ShareModule} from "../share/share.module";
 import { PaiementComponent } from './components/paiement/paiement.component';
 import { NewRendezvousComponent } from './components/new-rendezvous/new-rendezvous.component';
 import {CabinetService} from "../cabinets/services/cabinet.service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -24,6 +25,7 @@ import {CabinetService} from "../cabinets/services/cabinet.service";
     CommonModule,
     RendezvousRoutingModule,
     ShareModule,
+      ReactiveFormsModule
   ],
     exports: [
         RendezvousListItemComponent

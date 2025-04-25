@@ -8,7 +8,7 @@ import {NewRendezvousComponent} from "./components/new-rendezvous/new-rendezvous
 const routes: Routes = [
   {path:'',component:RendezvousListComponent,resolve:{rendezvousList:RendezvousResolver}},
   {path:'paiement/:id',component:PaiementComponent},
-  {path:'new/:id',component:NewRendezvousComponent},
+  {path:'new',component:NewRendezvousComponent},
 ];
 
 @NgModule({

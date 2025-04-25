@@ -76,9 +76,13 @@ public class RendezVousController {
     }
 
     @DeleteMapping("/rendezvous/{id}")
-    public String deleteRendezvous(@PathVariable  long id){
-        rendezVousService.deleteRendezvous(id);
-        return "Votre suppression a ete effectuer avec success";
+    public ResponseEntity<Boolean> deleteRendezvous(@PathVariable  long id) throws Exception {
+        if(id ==0){
+            throw new Exception("Veuillez verifiez que la rendezvous associes a cette id: "+id+" existe");
+        }else{
+            rendezVousService.deleteRendezvousById(id);
+            return ResponseEntity.ok(true);
+        }
     }
     @PutMapping("/rendezvous/paiement/{idPaiement}/{idRendezvous}")
     public ResponseEntity<String> paimentEffectuer(@PathVariable long idPaiement, @PathVariable long idRendezvous){

@@ -1,36 +1,159 @@
+/* Base Styles */
 body {
-  background-color: #f8f9fa;
-  font-family: 'Arial', sans-serif;
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  min-height: 100vh;
 }
-.container {
-  margin-top: 30px;
-}
+
+/* Card Styles */
 .card {
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 .card-header {
-  background-color: #007bff;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
 }
-.form-control {
-  border-radius: 5px;
+
+/* Form Styles */
+.form-control, .form-select {
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 1rem;
 }
-.btn-custom {
-  background-color: #28a745;
-  color: white;
+
+.form-control:focus, .form-select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
-.btn-custom:hover {
-  background-color: #218838;
+
+/* Button Styles */
+.btn {
+  transition: all 0.2s ease;
+  letter-spacing: 0.5px;
 }
-.btn-danger {
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-outline-danger:hover {
   background-color: #dc3545;
+  color: white;
 }
-.btn-danger:hover {
-  background-color: #c82333;
+
+/* Table Styles */
+.table {
+  margin-bottom: 0;
 }
-.table th, .table td {
+
+.table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+}
+
+.table td {
   vertical-align: middle;
+  padding: 1rem 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+  .card-header h5 {
+    font-size: 1.1rem;
+  }
+
+  .form-control, .form-select, .btn {
+    font-size: 0.9rem;
+  }
+
+  .table th, .table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .btn-group-sm .btn {
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Animation for better UX */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+/* Styles spécifiques pour la liste scrollable */
+.table-header {
+  padding: 0.75rem 0;
+  z-index: 10;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.table-body {
+  scrollbar-width: thin;
+  scrollbar-color: #adb5bd #f1f1f1;
+}
+
+.table-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  background-color: #adb5bd;
+  border-radius: 4px;
+}
+
+.table-body .row {
+  transition: background-color 0.2s ease;
+}
+
+.table-body .row:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Ajustement pour mobile */
+@media (max-width: 767.98px) {
+  .table-header .col-2,
+  .table-body .col-2 {
+    display: none;
+  }
+
+  .table-body {
+    max-height: 300px;
+  }
 }

@@ -7,6 +7,7 @@ import com.projetMedecine.Repository.CabinetMedicalRepository;
 import com.projetMedecine.Repository.RendezVousRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +53,9 @@ public class CabinetMedicalService {
     }
     public void deleteCabinetMedical(long id){
         cabinetMedicalRepository.deleteById(id);
+    }
+
+    public CabinetMedical getCabinetMedicalByadminUsername(String username) {
+            return cabinetMedicalRepository.findCabinetMedicalByAdmin_Username(username);
     }
 }

@@ -1,82 +1,96 @@
 <body>
-<div class="container my-5">
-    <div class="row">
-        <!-- Formulaire pour ajouter un rendez-vous -->
-        <div class="col-md-6">
-            <div class="card my-5">
-                <div class="card-header">
-                    <i class="fas fa-calendar-plus"></i> Ajouter un Rendez-vous
+<div class="container-fluid px-md-5 py-4">
+    <div class="row g-4">
+        <!-- Appointment Form -->
+        <div class="col-lg-6 py-5">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-calendar-plus me-2"></i>
+                    <h5 class="mb-0">Ajouter un Rendez-vous</h5>
                 </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="dateRv">Date du Rendez-vous</label>
-                            <input type="date" class="form-control" id="dateRv">
+                <div class="card-body p-4">
+                    <form [formGroup]="mainForm" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="dateRv" class="form-label">Date du Rendez-vous</label>
+                            <input type="date" class="form-control form-control-lg" id="dateRv" formControlName="dateRv" required>
+                            <div class="invalid-feedback">Veuillez sélectionner une date valide</div>
                         </div>
-                        <div class="form-group">
-                            <label for="heureRv">Heure du Rendez-vous</label>
-                            <input type="time" class="form-control" id="heureRv">
+
+                        <div class="mb-3">
+                            <label for="heureRv" class="form-label">Heure du Rendez-vous</label>
+                            <input type="time" class="form-control form-control-lg" id="heureRv" formControlName="heureRv" required>
+                            <div class="invalid-feedback">Veuillez sélectionner une heure valide</div>
                         </div>
-                        <div class="form-group">
-                            <label for="duree">Durée (en minutes)</label>
-                            <input type="number" class="form-control" id="duree" min="1">
+
+                        <div class="mb-3">
+                            <label for="duree" class="form-label">Durée (en minutes)</label>
+                            <input type="number" class="form-control form-control-lg" id="duree" min="1" formControlName="duree" required>
+                            <div class="invalid-feedback">La durée doit être d'au moins 1 minute</div>
                         </div>
-                        <div class="form-group">
-                            <label for="idCabinet">Cabinet Médical</label>
-                            <select class="form-control" id="idCabinet">
-                                <option value="1">Cabinet A</option>
-                                <option value="2">Cabinet B</option>
-                                <option value="3">Cabinet C</option>
+
+                        <div class="mb-4" *ngIf="cabinetInfo">
+                            <label for="idCabinet" class="form-label">Cabinet Médical</label>
+                            <select class="form-select form-select-lg" id="idCabinet" disabled>
+                                <option>{{cabinetInfo.nom}}</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-custom w-100">
-                            <i class="fas fa-save"></i> Enregistrer
+
+                        <button type="submit" class="btn btn-success btn-lg w-100 py-2 fw-bold" [disabled]="mainForm.invalid" (click)="onSave()">
+                            <i class="fas fa-save me-2"></i> Enregistrer
                         </button>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- Liste des rendez-vous -->
-        <div class="col-md-6">
-            <div class="card my-5">
-                <div class="card-header">
-                    <i class="fas fa-calendar-alt"></i> Liste des Rendez-vous
+
+        <div class="col-lg-6 py-5">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-primary text-white d-flex align-items-center">
+                    <i class="fas fa-calendar-alt me-2"></i>
+                    <h5 class="mb-0">Liste des Rendez-vous</h5>
                 </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Date</th>
-                            <th>Heure</th>
-                            <th>Durée</th>
-                            <th>Cabinet</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let rendezvous of rendezvousList">
-                            <!--<td>1</td>
-                            <td>2025-03-28</td>
-                            <td>14:30</td>
-                            <td>30</td>
-                            <td>Cabinet A</td>
-                            <td>-->
-                            <td>{{rendezvous.id}}</td>
-                            <td>{{rendezvous.dateRv}}</td>
-                            <td>{{rendezvous.heureRv}}</td>
-                            <td>{{rendezvous.duree}}</td>
-                            <td>
-                                <button class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Modifier
-                                </button>
-                                <button class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash-alt"></i> Supprimer
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="card-body p-0 d-flex flex-column">
+                    <!-- En-tête du tableau fixe -->
+                    <div class="table-header sticky-top bg-light">
+                        <div class="row g-0 fw-bold small text-muted text-uppercase">
+                            <div class="col-2 ps-4">ID</div>
+                            <div class="col-3">Date</div>
+                            <div class="col-2">Heure</div>
+                            <div class="col-2">Durée</div>
+                            <div class="col-3 text-end pe-4">Actions</div>
+                        </div>
+                    </div>
+
+                    <!-- Corps scrollable -->
+                    <div class="table-body flex-grow-1" style="max-height: 400px; overflow-y: auto;">
+                        <div *ngFor="let rendezvous of rendezvousList" class="row g-0 py-2 align-items-center border-top">
+                            <div class="col-2 ps-4">{{rendezvous.id}}</div>
+                            <div class="col-3">{{rendezvous.dateRv | date:'shortDate'}}</div>
+                            <div class="col-2">{{rendezvous.heureRv}}</div>
+                            <div class="col-2">{{rendezvous.duree}} min</div>
+                            <div class="col-3 text-end pe-4">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button class="btn btn-outline-warning" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" title="Supprimer" (click)="onDeleteRv(this.rendezvous.id)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="rendezvousList.length === 0" class="row g-0 py-4 text-center text-muted">
+                            <div class="col-12">Aucun rendez-vous programmé</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Total: {{rendezvousList.length}} rendez-vous</small>
+                    <button class="btn btn-sm btn-outline-primary" (click)="refreshList()">
+                        <i class="fas fa-sync-alt me-1"></i> Actualiser
+                    </button>
                 </div>
             </div>
         </div>
