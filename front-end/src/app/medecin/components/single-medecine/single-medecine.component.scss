@@ -1,0 +1,33 @@
+/* Dans votre fichier SCSS du composant */
+.avatar-container {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .card-footer {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-footer div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .card-footer button {
+    width: 100%;
+  }
+}
+
+.list-group-item {
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}

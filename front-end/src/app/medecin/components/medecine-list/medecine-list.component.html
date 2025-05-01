@@ -1,0 +1,84 @@
+<div class="container my-5">
+    <h1 class="text-center mb-5"><i class="fas fa-user-md me-2 my-5"></i> Médecins disponibles dans ce cabinet</h1>
+
+    <div class="text-center" *ngIf="loading$ | async">
+        <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-3">Chargement des médecins...</p>
+    </div>
+
+    <div class="row g-4" *ngIf="medecins$ | async as medecins">
+        <div class="container my-4">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="row g-3 align-items-center">
+                                <!-- Champ de recherche -->
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-search"></i>
+                </span>
+                                        <input type="text"
+                                               class="form-control"
+                                               [formControl]="searchCtrl"
+                                               placeholder="Rechercher un médecin...">
+                                    </div>
+                                </div>
+
+                                <!-- Sélecteur de type de recherche -->
+                                <div class="col-md-3">
+                                    <select class="form-select" [formControl]="seachTypeCtrl">
+                                        <option *ngFor="let option of searchTypeOptions"
+                                                [value]="option.value">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let medecin of medecins">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="position-relative d-inline-block">
+                        <img src="https://ui-avatars.com/api/?name={{medecin.prenom}}+{{medecin.nom}}&background=random&size=200&rounded=true"
+                             class="rounded-circle mb-3 img-thumbnail border-primary"
+                             alt="Photo du Dr. {{medecin.prenom}} {{medecin.nom}}"
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                        <span class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2 border border-3 border-white">
+                            <i class="fas fa-stethoscope"></i>
+                        </span>
+                    </div>
+                    <h3 class="h5 card-title mb-2">
+                        <button id="selected" (click)="onLoadMedecin(medecin.matricule)" ><strong>Dr. {{medecin.prenom}} {{medecin.nom}}</strong></button>
+                    </h3>
+                    <div class="badge bg-primary-light text-primary mb-3 rounded-pill px-3 py-2">
+                        <i class="fas fa-star me-1"></i> {{medecin.specialite}}
+                    </div>
+                    <div class="d-flex justify-content-center small text-muted mb-3">
+                        <div class="me-3">
+                            <i class="fas fa-envelope me-1"></i> {{medecin.email || 'Non renseigné'}}
+                        </div>
+                        <div>
+                            <i class="fas fa-phone me-1"></i> {{medecin.telephone}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="(medecins$ | async)?.length === 0 && !(loading$ | async)" class="text-center py-5">
+        <div class="empty-state">
+            <i class="fas fa-user-md-slash text-muted mb-3" style="font-size: 3rem;"></i>
+            <h3 class="h4">Aucun médecin disponible</h3>
+            <p class="text-muted">Aucun médecin n'est actuellement rattaché à ce cabinet.</p>
+        </div>
+    </div>
+</div>

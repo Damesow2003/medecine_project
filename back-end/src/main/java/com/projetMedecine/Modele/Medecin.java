@@ -1,13 +1,10 @@
 package com.projetMedecine.Modele;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.DynamicUpdate;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class Medecin extends Utilisateur {
             fetch = FetchType.LAZY
    )
     @JoinTable(
-            name="cabinet_medecin",
+            name="medecin_cabinet",
             joinColumns = @JoinColumn(name="matricule"),
             inverseJoinColumns = @JoinColumn(name = "id_cabinet")
     )

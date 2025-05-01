@@ -14,6 +14,7 @@ const routes: Routes = [
   {path:'rendezvous',loadChildren:()=>import('./rendezvous/rendezvous.module').then(m=>m.RendezvousModule),canActivate:[AuthenticationGuard]},
   {path:'dashbord',loadChildren:()=>import('./dashbord/dashbord.module').then(m=>m.DashbordModule)},
   {path:'auth',loadChildren:()=>import('./authentification/authentification.module').then(m=>m.AuthentificationModule)},
+  {path:'medecins', loadChildren:()=>import('./medecin/medecin.module').then(m=>m.MedecinModule)},
   {path:'not-authorized',component:NotAuthorizedComponent},
   {path:'**',redirectTo:'/'},
 ];

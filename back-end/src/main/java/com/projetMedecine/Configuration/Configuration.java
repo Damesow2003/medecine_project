@@ -70,10 +70,10 @@ public class Configuration {
         return http
                 .csrf(csrf->csrf.disable())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth->auth.requestMatchers("/auth/login/**").permitAll())
+                //.authorizeHttpRequests(auth->auth.requestMatchers("/auth/login/**").permitAll())
                 /*.authorizeHttpRequests(auth->auth.requestMatchers("/auth/login/signup").permitAll())*/
                 .authorizeHttpRequests(auth->auth.requestMatchers("**").permitAll())
-                .authorizeHttpRequests(auth->auth.anyRequest().authenticated())
+                //.authorizeHttpRequests(auth->auth.anyRequest().authenticated())
                 //.httpBasic(Customizer.withDefaults())
                 .cors(Customizer.withDefaults())
                 .oauth2ResourceServer(oauth->oauth.jwt(Customizer.withDefaults()))
