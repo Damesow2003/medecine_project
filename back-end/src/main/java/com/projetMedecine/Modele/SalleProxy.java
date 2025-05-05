@@ -9,5 +9,6 @@ import java.util.List;
 public class SalleProxy {
     String numeroSalle;
     String nomSalle;
+    String status;
     Long idCabinet;
 }

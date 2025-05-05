@@ -23,7 +23,7 @@ public class Salle {
     private String numeroSalle;
     @Column(name="nom_salle")
     private String nomSalle;
-
+    private String status;
     @ManyToOne(
             cascade = {
                     CascadeType.MERGE,

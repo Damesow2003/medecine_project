@@ -16,6 +16,6 @@ export class Medecin {
     dateDeNaissance!: string
     matricule!: number
     specialite!: string
-   /* traitementList!: any[]
-    cabinetMedicals!: CabinetModel[]*/
+    traitementList!: any[]
+    cabinetMedicals!:CabinetModel[];
 }
