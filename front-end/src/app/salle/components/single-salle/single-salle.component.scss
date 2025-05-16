@@ -1,0 +1,122 @@
+
+.salle-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .header {
+    .title {
+      color: #0D6EFDFF;
+      font-weight: 600;
+    }
+
+    .print-btn {
+      &:hover {
+        background-color:  #0D6EFDFF;
+        color: white;
+      }
+    }
+  }
+
+  .salle-card, .patients-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: none;
+
+    .card-header {
+      background-color: lighten( #0D6EFDFF, 45%);
+      border-radius: 10px 10px 0 0 !important;
+      padding: 1rem 1.5rem;
+
+      .card-title {
+        color:  #0D6EFDFF;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .badge {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+      }
+    }
+
+    .card-body {
+      padding: 1.5rem;
+
+      p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+
+        strong {
+          color: #343A40FF;
+        }
+      }
+    }
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 2rem;
+    color: #343A40FF;
+
+    .no-data-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #343A40FF;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
+
+  table {
+    th {
+      background-color: lighten( #0D6EFDFF, 50%);
+      color:  #0D6EFDFF;
+      font-weight: 600;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.5rem;
+    }
+  }
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media print {
+  .print-btn {
+    display: none !important;
+  }
+
+  .salle-container {
+    padding: 0;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+}

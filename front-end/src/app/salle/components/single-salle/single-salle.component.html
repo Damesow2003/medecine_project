@@ -1,0 +1,98 @@
+<div class="salle-container py-5" *ngIf="salle$ | async as salle">
+    <div class="header d-flex justify-content-between align-items-center mb-4">
+        <h1 class="title">
+            <i class="fas fa-door-open me-2"></i>Détails de la Salle: {{salle.nomSalle}}
+        </h1>
+        <button class="btn btn-outline-primary print-btn" (click)="printDetails()">
+            <i class="fas fa-print me-2"></i>Imprimer
+        </button>
+    </div>
+
+    <div class="card salle-card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2 class="card-title mb-0">
+                <i class="fas fa-info-circle me-2"></i>Informations de base
+            </h2>
+            <span class="badge" [ngClass]="{
+        'bg-success': salle.status === 'disponible',
+        'bg-danger': salle.status === 'occupee'
+      }">
+        {{ salle.status | uppercase }}
+      </span>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong><i class="fas fa-hashtag me-2"></i>Numéro :</strong> {{ salle.numeroSalle }}</p>
+                    <p><strong><i class="fas fa-signature me-2"></i>Nom :</strong> {{ salle.nomSalle }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong><i class="fas fa-calendar-day me-2"></i>Patients aujourd'hui :</strong>
+                        {{ getTodayPatientsCount(salle) }}
+                    </p>
+                    <p><strong><i class="fas fa-procedures me-2"></i>Traitements associés :</strong>
+                        {{ salle.traitements.length }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card patients-card">
+        <div class="card-header">
+            <h2 class="card-title mb-0">
+                <i class="fas fa-calendar-check me-2"></i>Rendez-vous programmés
+            </h2>
+        </div>
+        <div class="card-body">
+            <div *ngIf="salle.traitements.length === 0" class="no-data">
+                <i class="far fa-calendar-times no-data-icon"></i>
+                <p>Aucun rendez-vous programmé pour cette salle</p>
+            </div>
+
+            <div class="table-responsive" *ngIf="salle.traitements.length > 0">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th><i class="far fa-calendar-alt me-2"></i>Date</th>
+                        <th><i class="far fa-clock me-2"></i>Heure</th>
+                        <th><i class="fas fa-user-injured me-2"></i>Patient</th>
+                        <th><i class="fas fa-medkit me-2"></i>Traitement</th>
+                        <th><i class="fas fa-bell me-2"></i>Notifications</th>
+                        <th><i class="fas fa-prescription me-2"></i>Prescriptions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let traitement of salle.traitements">
+                        <td>{{ traitement.rendezvous.dateRv | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ traitement.rendezvous.heureRv }}</td>
+                        <td>Patient #{{ traitement.idPatient }}</td>
+                        <td>{{ traitement.nom }}</td>
+                        <td>
+                <span class="badge bg-info">
+                  <!--{{ traitement.rendezvous.notifications.length }}-->
+                </span>
+                        </td>
+                        <td>
+                <span class="badge bg-warning text-dark">
+                 <!-- {{ traitement.rendezvous.prescriptions.length }}-->
+                </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="getNextRv(salle) as nextRv" class="alert alert-info">
+        <i class="fas fa-clock me-2"></i>
+        <strong>Prochain RDV :</strong>
+        {{ nextRv.rendezvous.dateRv | date:'dd/MM/yyyy' }} à {{ nextRv.rendezvous.heureRv }}
+    </div>
+</div>
+
+<div *ngIf="loading$ | async" class="loading-overlay">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Chargement...</span>
+    </div>
+</div>
