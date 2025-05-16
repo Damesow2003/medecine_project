@@ -73,8 +73,6 @@ export class MedecineListComponent implements OnInit {
     ]
   }
 
-  resetSearch() {
-    this.searchCtrl.reset();
-  }
+
 
 }
