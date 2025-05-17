@@ -4,7 +4,6 @@ import {Traitement} from "../../modeles/traitement.model";
 import {SalleService} from "../../services/salle.service";
 import {ActivatedRoute} from "@angular/router";
 import {Salle} from "../../modeles/salle";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-single-salle',
