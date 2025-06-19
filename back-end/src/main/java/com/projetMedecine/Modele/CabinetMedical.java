@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name = "cabinet_medical")
 @Data
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 @DynamicUpdate
 public class CabinetMedical {
     @Id
@@ -48,10 +48,15 @@ public class CabinetMedical {
     private List<Rendezvous> rendezvousList = new ArrayList<>();
 
    @OneToOne(
-           cascade = CascadeType.ALL,
+           cascade ={
+                   CascadeType.PERSIST,
+                   CascadeType.MERGE
+           },
            fetch = FetchType.LAZY,
-           mappedBy = "cabinetMedical"
+           mappedBy = "cabinetMedical",
+           optional = true // si l'admin peut etre null
+
    )
-    @JsonManagedReference
+    @JsonManagedReference("admin-cabinet")
     private Admin admin;
 }

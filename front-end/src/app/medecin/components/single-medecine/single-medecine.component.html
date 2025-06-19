@@ -111,37 +111,6 @@
                                 </div>
                             </div>
                         </div>
-
-                       <!-- &lt;!&ndash; Traitements &ndash;&gt;
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTraitements">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTraitements">
-                                    <i class="fas fa-prescription-bottle-alt me-2"></i> Traitements Spécialisés
-                                </button>
-                            </h2>
-                            <div id="collapseTraitements" class="accordion-collapse collapse" data-bs-parent="#medecinAccordion">
-                                <div class="accordion-body">
-                                    <ng-container *ngIf="medecin?.traitementList?.length; else noTraitement">
-                                        <div class="list-group">
-                                            <div *ngFor="let traitement of medecin?.traitementList" class="list-group-item">
-                                                <h5 class="mb-1">{{ traitement.nom }}</h5>
-                                                <p class="mb-1">{{ traitement.description }}</p>
-                                            </div>
-                                        </div>
-                                    </ng-container>
-                                    <ng-template #noTraitement>
-                                        <div class="alert alert-info mb-0">
-                                            Aucun traitement spécialisé renseigné
-                                        </div>
-                                    </ng-template>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
--->
         <!-- Footer with Action Buttons -->
         <div class="card-footer bg-light d-flex justify-content-between">
             <button class="btn btn-outline-secondary">

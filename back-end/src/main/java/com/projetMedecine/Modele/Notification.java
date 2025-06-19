@@ -18,7 +18,7 @@ public class Notification {
     Long idNotification;
     private String contenu;
     @Column(name="date_envoie")
-    private LocalDate dateEnvoie;
+    private String dateEnvoie;
 
     @ManyToOne(
             cascade = {

@@ -4,6 +4,7 @@ import {Traitement} from "../../modeles/traitement.model";
 import {SalleService} from "../../services/salle.service";
 import {ActivatedRoute} from "@angular/router";
 import {Salle} from "../../modeles/salle";
+import {TraitementAPI} from "../../modeles/traitementAPI.model";
 
 @Component({
   selector: 'app-single-salle',
@@ -43,31 +44,46 @@ export class SingleSalleComponent implements OnInit {
     )
   }
 
-  getNextRv(selectedRoom: Salle) {
-    if (!selectedRoom.traitements || selectedRoom.traitements.length === 0) {
-      return null;
-    }
+  getNextRv(selectedRoom: Salle): TraitementAPI | null {
+    if (!selectedRoom.traitements?.length) return null;
 
-    // Trouver le rendez-vous le plus proche (date/heure dans le futur)
     const now = new Date();
+
     const futureRvs = selectedRoom.traitements
+        .filter(t => this.hasValidRendezvous(t))
         .filter(t => {
-          const rvDate = new Date(`${t.rendezvous.dateRv}T${t.rendezvous.heureRv}`);
+          const rvDate = this.parseDateHeure(t.rendezvous!.dateHeure);
           return rvDate > now;
         })
         .sort((a, b) => {
-          const dateA = new Date(`${a.rendezvous.dateRv}T${a.rendezvous.heureRv}`);
-          const dateB = new Date(`${b.rendezvous.dateRv}T${b.rendezvous.heureRv}`);
+          const dateA = this.parseDateHeure(a.rendezvous!.dateHeure);
+          const dateB = this.parseDateHeure(b.rendezvous!.dateHeure);
           return dateA.getTime() - dateB.getTime();
         });
 
-    return futureRvs.length > 0 ? futureRvs[0] : null;
-  }
-  getTodayPatientsCount(selectedRoom: Salle) {
-    const today = new Date().toISOString().split('T')[0];
-    return selectedRoom.traitements.filter(traitement => traitement.rendezvous.dateRv === today).length;
+    return futureRvs[0] || null;
   }
 
+  private hasValidRendezvous(traitement: TraitementAPI): boolean {
+    return !!traitement.rendezvous?.dateHeure;
+  }
+
+  private parseDateHeure(dateHeure: string): Date {
+    const [datePart, timePart] = dateHeure.split(' H: ');
+    return new Date(`${datePart}T${timePart}`);
+  }
+
+  getTodayPatientsCount(selectedRoom: Salle): number {
+    if (!selectedRoom.traitements.length) return 0;
+
+    const today = new Date().toISOString().split('T')[0];
+    return selectedRoom.traitements
+        .filter(t => this.hasValidRendezvous(t))
+        .filter(t => {
+          const [datePart] = t.rendezvous!.dateHeure.split(' H: ');
+          return datePart === today;
+        }).length;
+  }
 
 
   printDetails() {

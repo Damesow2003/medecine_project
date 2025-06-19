@@ -1,9 +1,7 @@
 package com.projetMedecine.Service;
 
 
-import com.projetMedecine.Modele.Prescription;
-import com.projetMedecine.Modele.PrescriptionProxy;
-import com.projetMedecine.Modele.Rendezvous;
+import com.projetMedecine.Modele.*;
 import com.projetMedecine.Repository.PrescriptionRepository;
 import com.projetMedecine.Repository.RendezVousRepository;
 import jakarta.transaction.Transactional;
@@ -12,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -20,12 +20,21 @@ public class PrescriptionService {
     private PrescriptionRepository prescriptionRepository;
     @Autowired
     private RendezVousRepository rendezVousRepository;
-    public Iterable<Prescription> prescriptions(){
+    @Autowired
+    private DtoConversion dtoConversion;
+    /*public Iterable<Prescription> prescriptions(){
 
         return prescriptionRepository.findAll();
+    }*/
+    public List<PrescriptionDTO> prescriptions() {
+        return StreamSupport.stream(prescriptionRepository.findAll().spliterator(),false)
+                .map(/*this::convertToPrescriptionDTO*/ prescription -> this.dtoConversion.convertToPrescriptionDTO(prescription))
+                .collect(Collectors.toList());
     }
-    public Optional<Prescription> prescription(long id){
-        return prescriptionRepository.findById(id);
+
+
+    public Optional<PrescriptionDTO> prescription(long id){
+        return prescriptionRepository.findById(id).map(prescription -> this.dtoConversion.convertToPrescriptionDTO(prescription));
     }
 
     public void deletePrescriptionById(long id){

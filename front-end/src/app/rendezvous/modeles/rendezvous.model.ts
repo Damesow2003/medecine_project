@@ -4,6 +4,7 @@ export class RendezvousModel {
   heureRv!: string;
   duree!: number;
 /*  notifications!: Notification[];
-  prescriptions!: Prescription[];*/
+  prescriptions!: Prescription[];
+  patient?:Patient*/
 
 }

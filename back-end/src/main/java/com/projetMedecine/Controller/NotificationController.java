@@ -3,6 +3,7 @@ package com.projetMedecine.Controller;
 import com.projetMedecine.Exceptions.NotificationNotFound;
 import com.projetMedecine.Exceptions.PrescriptionBadRequest;
 import com.projetMedecine.Modele.Notification;
+import com.projetMedecine.Modele.NotificationDTO;
 import com.projetMedecine.Modele.NotificationProxy;
 import com.projetMedecine.Modele.Rendezvous;
 import com.projetMedecine.Service.NotificationService;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,14 +26,18 @@ public class NotificationController {
     private RendezVousService rendezVousService;
 
     @GetMapping("/notifications")
-    public Iterable<Notification> getNotifications(){
-        return notificationService.notifications();
+    public ResponseEntity<List<NotificationDTO>> getNotifications(){
+        List<NotificationDTO> notificationDTOList = notificationService.notifications();
+        if(notificationDTOList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(notificationDTOList, HttpStatus.OK);
     }
 
     @GetMapping("/notifications/{id}")
-    public ResponseEntity<Optional<Notification>> getNotification(@PathVariable long id){
-        Optional<Notification> existingNotification = notificationService.notification(id);
-        if(!existingNotification.isPresent()){
+    public ResponseEntity<Optional<NotificationDTO>> getNotification(@PathVariable long id){
+        Optional<NotificationDTO> existingNotification = notificationService.notification(id);
+        if(existingNotification.isEmpty()){
             throw new NotificationNotFound("la notification avec l'id "+id+" est introuvable");
         }
         return ResponseEntity.ok(existingNotification);

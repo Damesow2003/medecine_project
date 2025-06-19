@@ -9,7 +9,7 @@ public class CabinetMedicalProxy {
     private String adresse;
     private String nom;
     private String imageUrl;
-    //private List<Long> idCabinetMedical;
+
 
 
     public CabinetMedicalProxy(String adresse, String nom,String imageUrl) {

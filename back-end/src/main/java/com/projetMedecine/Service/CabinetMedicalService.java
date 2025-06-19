@@ -1,17 +1,17 @@
 package com.projetMedecine.Service;
 
-import com.projetMedecine.Modele.CabinetMedical;
-import com.projetMedecine.Modele.CabinetMedicalProxy;
-import com.projetMedecine.Modele.Rendezvous;
+import com.projetMedecine.Modele.*;
 import com.projetMedecine.Repository.CabinetMedicalRepository;
 import com.projetMedecine.Repository.RendezVousRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -20,13 +20,19 @@ public class CabinetMedicalService {
     private CabinetMedicalRepository cabinetMedicalRepository;
     @Autowired
     private RendezVousRepository rendezVousRepository;
+    @Autowired
+    private DtoConversion dtoConversion;
 
-    public Iterable<CabinetMedical> getCabinetMedicals() {
-        return cabinetMedicalRepository.findAll();
+    public List<CabinetMedicalDTO> getCabinetMedicals()  {
+        return StreamSupport.stream(cabinetMedicalRepository.findAll().spliterator(),false)
+                .map(/*this::convertToCabinetMedicalDTO*/cabinet-> this.dtoConversion.convertToCabinetMedicalDTO(cabinet))
+                .collect(Collectors.toList());
     }
 
-    public Optional<CabinetMedical> getCabinetMedical(long id) {
-        return cabinetMedicalRepository.findById(id);
+    public Optional<CabinetMedicalDTO> getCabinetMedical(long id) {
+       return cabinetMedicalRepository.findById(id)
+               .map(/*this::convertToCabinetMedicalDTO*/ cabinet -> this.dtoConversion.convertToCabinetMedicalDTO(cabinet));
+
     }
 
     public CabinetMedical saveCabinetMedical(CabinetMedicalProxy cabinetMedicalProxy) {

@@ -1,6 +1,11 @@
+import {RendezvousModel} from "../../rendezvous/modeles/rendezvous.model";
+
 export class CabinetModel{
-  idCabinet!:number;
+  id!:number;
   adresse!:string;
   nom!:string;
   imageUrl!:string;
+/*  salles!:Salle[];
+  medecins!:Medecin[];
+  rendezvous: RendezvousModel[];*/
 }

@@ -1,5 +1,6 @@
 package com.projetMedecine.Modele;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.*;
@@ -18,14 +19,29 @@ import java.util.ArrayList;
 @PrimaryKeyJoinColumn(name="id_utilisateur")
 public class Patient  extends Utilisateur{
 
-    @Column(name="id_patient")
+   @Column(name="id_patient")
     private long idPatient;
-  /*  @OneToMany(
-            cascade=CascadeType.ALL,
-            fetch = FetchType.EAGER,
-            mappedBy = "patient"
-    )
-    @JsonManagedReference
-    private List<Rendezvous> rendezvousList = new ArrayList<>();*/
+  @OneToOne(
+          mappedBy = "patient",
+          cascade = CascadeType.ALL,
+          fetch = FetchType.EAGER,
+          orphanRemoval = true
+  )
+  @JsonBackReference
+  private Rendezvous rendezvous;
+
+  @OneToMany(
+          fetch = FetchType.LAZY,
+          cascade = {
+                  CascadeType.MERGE,
+                  CascadeType.PERSIST
+          }
+  )
+  @JsonManagedReference
+  private List<Traitement> traitements = new ArrayList<>();
+
+  public Long getIdPatient() {
+       return this.idPatient;
+   }
 
 }

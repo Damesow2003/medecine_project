@@ -72,36 +72,9 @@ public class Rendezvous {
     @JsonBackReference
     private Traitement traitement;
 
-   /* @ManyToOne(
-            cascade = {
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST
-            },
-            fetch = FetchType.LAZY
-    )
-    @JoinColumn(name="id_patient")
-    @JsonBackReference
-    private Patient patient;*/
 
-    //methode Utilitaire Notification(helpers methode)
-
-    public void addNotification(Notification notification){
-        notifications.add(notification);
-        notification.setRendezvous(this);
-    }
-    public void removeNotification(Notification notification){
-        notifications.remove(notification);
-        notification.setRendezvous(null);
-    }
-    //methode utiliraire Prescriptions
-
-    public void addPrescription(Prescription prescription){
-        prescriptions.add(prescription);
-        prescription.setRendezvous(this);
-    }
-
-    public void removePrescription(Prescription prescription){
-        prescriptions.remove(prescription);
-        prescription.setRendezvous(null);
-    }
+    @OneToOne
+    @JoinColumn(name = "id_patient",referencedColumnName = "id_patient")
+    @JsonManagedReference
+    private Patient patient;
 }

@@ -15,15 +15,16 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name="id_utilisateur")
 @DynamicUpdate
 public class Medecin extends Utilisateur {
+
     Long matricule;
     String specialite;
     @OneToMany(
-            fetch = FetchType.EAGER,
+            fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             mappedBy = "medecin"
     )
-    @JsonManagedReference
+    @JsonManagedReference("traitement-medecin")
     private List<Traitement> traitementList = new ArrayList<>();
 
    @ManyToMany(

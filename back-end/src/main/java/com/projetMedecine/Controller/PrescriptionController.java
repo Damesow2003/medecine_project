@@ -2,6 +2,7 @@ package com.projetMedecine.Controller;
 
 import com.projetMedecine.Exceptions.PrescriptionBadRequest;
 import com.projetMedecine.Modele.Prescription;
+import com.projetMedecine.Modele.PrescriptionDTO;
 import com.projetMedecine.Modele.PrescriptionProxy;
 import com.projetMedecine.Service.PrescriptionService;
 import jakarta.validation.Valid;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,17 +21,22 @@ public class PrescriptionController {
     PrescriptionService prescriptionService;
 
     @GetMapping("/prescriptions")
-    public Iterable<Prescription> getPrescriptions(){
-        return prescriptionService.prescriptions();
+    public ResponseEntity<List<PrescriptionDTO>> getPrescriptions(){
+      List<PrescriptionDTO> prescriptionDTOList =  prescriptionService.prescriptions();
+
+      if(prescriptionDTOList.isEmpty()){
+          return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+      }
+      return new ResponseEntity<>(prescriptionDTOList, HttpStatus.OK);
     }
     @GetMapping("/prescriptions/{id}")
-    public Optional<Prescription> getPrescripiton(@PathVariable long id){
-        Optional<Prescription> prescription = prescriptionService.prescription(id);
+    public ResponseEntity<Optional<PrescriptionDTO>> getPrescripiton(@PathVariable long id){
+        Optional<PrescriptionDTO> prescription = prescriptionService.prescription(id);
 
         if(prescription.isEmpty()){
             throw new PrescriptionBadRequest("La prescription correspondant a l'id "+id+" est introuvable");
         }
-        return prescription;
+      return ResponseEntity.ok(prescription);
     }
 
     @PostMapping("/prescriptions")

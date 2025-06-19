@@ -15,4 +15,9 @@ public interface RendezVousRepository extends JpaRepository<Rendezvous,Long> {
     @Modifying
     @Query(value = "UPDATE rendezvous SET id_paiement = :idPaiement WHERE id_rendezvous = :idRendezvous", nativeQuery = true)
     int paiementEffectuerSurRendezvous(@Param("idPaiement") Long idPaiement, @Param("idRendezvous") Long idRendezvous);
+
+
+    @Query("SELECT r FROM Rendezvous  r JOIN FETCH r.patient WHERE r.cabinetMedical.idCabinet= :cabinetId AND r.traitement.medecin.matricule = :matricule")
+    List<Rendezvous> findByMedecinMatriculeAndCabinetMedical(@Param("matricule") Long matricule, @Param("cabinetId") Long cabinetId);
+
 }

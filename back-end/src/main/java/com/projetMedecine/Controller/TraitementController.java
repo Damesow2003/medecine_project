@@ -2,6 +2,7 @@ package com.projetMedecine.Controller;
 
 import com.projetMedecine.Exceptions.TraitementBadRequest;
 import com.projetMedecine.Modele.Traitement;
+import com.projetMedecine.Modele.TraitementDTO;
 import com.projetMedecine.Modele.TraitementProxy;
 import com.projetMedecine.Service.PatientService;
 import com.projetMedecine.Service.TraitementService;
@@ -22,20 +23,31 @@ public class TraitementController {
     @Autowired
     private PatientService patientService;
     @GetMapping("/traitements")
-    public Iterable<Traitement> getTraitements(){
-        return traitementService.getTraitements();
+    public ResponseEntity<List<TraitementDTO>> getTraitements(){
+        List<TraitementDTO> traitementDTOList =  traitementService.getTraitements();
+
+        if(traitementDTOList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return ResponseEntity.ok(traitementDTOList);
     }
 
     @GetMapping("/traitements/{id}")
-    public Optional<Traitement> getTraitement(@PathVariable long id){
-        return traitementService.getTraitement(id);
+    public ResponseEntity<Optional<TraitementDTO>> getTraitement(@PathVariable long id){
+        Optional<TraitementDTO> traitementDTO = traitementService.getTraitement(id);
+
+        if(traitementDTO.isEmpty()){
+            throw new TraitementBadRequest("Traitement n'existe pas");
+        }
+        return ResponseEntity.ok(traitementDTO);
     }
 
-    @GetMapping("/traitements-patients/{id}")
+   /* @GetMapping("/traitements-patients/{id}")
     public List<Traitement> traitementsPatients(@PathVariable long id){
         List<Traitement> traitements = traitementService.findTraitementByidPatient(id);
         return  traitements;
-    }
+    }*/
 
     @PostMapping("/traitements")
     public ResponseEntity<Traitement> saveTraitement(@Valid @RequestBody TraitementProxy traitementProxy){

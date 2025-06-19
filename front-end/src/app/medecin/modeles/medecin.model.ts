@@ -1,8 +1,7 @@
 import {CabinetModel} from "../../cabinets/modeles/cabinet.model";
 
 export class Medecin {
-    id!: number
-    prenom!: string
+   /* prenom!: string
     nom!: string
     email!: string
     password!: string
@@ -17,5 +16,15 @@ export class Medecin {
     matricule!: number
     specialite!: string
     traitementList!: any[]
-    cabinetMedicals!:CabinetModel[];
+    cabinetMedicals!:CabinetModel[];*/
+    matricule!: number
+    specialite!: string
+    prenom!: string
+    nom!: string
+    email!: string
+    telephone!: string
+    adresse!: string;
+    dateDeNaissance!:string;
+    cabinetMedicals!: CabinetModel[];
+    //traitements: Traitement[]
 }

@@ -3,8 +3,9 @@ package com.projetMedecine.Controller;
 
 import com.projetMedecine.Exceptions.CabinetMedicalBadRequest;
 import com.projetMedecine.Modele.CabinetMedical;
+import com.projetMedecine.Modele.CabinetMedicalDTO;
 import com.projetMedecine.Modele.CabinetMedicalProxy;
-import com.projetMedecine.Modele.CabinetRendezvous;
+
 import com.projetMedecine.Service.CabinetMedicalService;
 import com.projetMedecine.Service.RendezVousService;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @RestController
 @CrossOrigin("*")
 public class CabinetMedicalController {
@@ -27,13 +29,24 @@ public class CabinetMedicalController {
     private RendezVousService rendezVousService;
 
     @GetMapping("/cabinets")
-    public Iterable<CabinetMedical> getCabinetMedical() {
-        return cabinetMedicalService.getCabinetMedicals();
+    public ResponseEntity<List<CabinetMedicalDTO>> getCabinetMedical() {
+      List<CabinetMedicalDTO> cabinets =  cabinetMedicalService.getCabinetMedicals();
+        if(cabinets.isEmpty()) {
+            throw new RuntimeException("Aucun cabinet Medical retrouve");
+        }
+      return ResponseEntity.ok(cabinets);
     }
 
     @GetMapping("/cabinets/{id}")
-    public Optional<CabinetMedical> getCabinetMedicalById(@PathVariable long id) {
-        return cabinetMedicalService.getCabinetMedical(id);
+    public ResponseEntity<Optional<CabinetMedicalDTO>> getCabinetMedicalById(@PathVariable long id) {
+        Optional<CabinetMedicalDTO> optionalCabinetMedicalDTO = cabinetMedicalService.getCabinetMedical(id);
+
+        if(optionalCabinetMedicalDTO.isEmpty()) {
+            throw new RuntimeException("Aucun cabinet Medical retrouve associee a cette id "+ id);
+        }else{
+            return ResponseEntity.ok(optionalCabinetMedicalDTO);
+        }
+
     }
 
     @PostMapping("/cabinets")
@@ -48,7 +61,7 @@ public class CabinetMedicalController {
 
     @PutMapping("/cabinets/{id}")
     public ResponseEntity<CabinetMedical> updateCabinetMedical(@PathVariable long id,@Valid @RequestBody CabinetMedicalProxy cabinetMedical){
-        Optional<CabinetMedical> existingCabinet = cabinetMedicalService.getCabinetMedical(id);
+        Optional<CabinetMedicalDTO> existingCabinet = cabinetMedicalService.getCabinetMedical(id);
         if(existingCabinet.isEmpty()){
             throw new RuntimeException("Veuillez saisir un body valide");
         }

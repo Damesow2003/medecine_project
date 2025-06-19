@@ -2,7 +2,6 @@ package com.projetMedecine.Service;
 
 import com.projetMedecine.Exceptions.TraitementBadRequest;
 import com.projetMedecine.Modele.*;
-import com.projetMedecine.Repository.MedecinRepository;
 import com.projetMedecine.Repository.RendezVousRepository;
 import com.projetMedecine.Repository.SalleRepository;
 import com.projetMedecine.Repository.TraitementRepository;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -23,20 +24,25 @@ public class TraitementService {
     @Autowired
     private RendezVousRepository rendezVousRepository;
     @Autowired
-    private MedecinRepository medecinRepository;
+    private DtoConversion dtoConversion;
 
-    public Iterable<Traitement> getTraitements(){
-        return traitementRepository.findAll();
+
+    public List<TraitementDTO> getTraitements(){
+        return StreamSupport.stream(this.traitementRepository.findAll().spliterator(),false)
+                .map(/*this::convertToTraitementDTO*/traitement -> this.dtoConversion.convertToTraitementDTO(traitement))
+                .collect(Collectors.toList());
     }
 
-    public Optional<Traitement> getTraitement(long id){
-        return  traitementRepository.findById(id);
+    public Optional<TraitementDTO> getTraitement(long id){
+        return  traitementRepository.findById(id)
+                .map(traitement -> this.dtoConversion.convertToTraitementDTO(traitement));
     }
+
+
 
     public Traitement saveTraitement(TraitementProxy traitementProxy){
         Traitement newTraitement = new Traitement();
         newTraitement.setNom(traitementProxy.getNom());
-        newTraitement.setIdPatient(traitementProxy.getIdPatient());
 
         if(traitementProxy.getIdSalle()!=0){
             Optional<Salle> existingSalle = Optional.ofNullable(salleRepository.findById(traitementProxy.getIdSalle())
@@ -50,11 +56,11 @@ public class TraitementService {
             newTraitement.setRendezvous(existingRendezvous.get());
         }
 
-        if(traitementProxy.getMatriculeMedecin() != 0){
+       /* if(traitementProxy.getMatriculeMedecin() != 0){
             Optional<Medecin> existingMedecin = Optional.ofNullable(medecinRepository.findById(traitementProxy.getMatriculeMedecin())
                     .orElseThrow(() -> new TraitementBadRequest("le medecin avec la matricule " + traitementProxy.getMatriculeMedecin() + "est introuvable")));
             newTraitement.setMedecin(existingMedecin.get());
-        }
+        }*/
 
         return traitementRepository.save(newTraitement);
     }
@@ -63,7 +69,6 @@ public class TraitementService {
         Traitement updatedTraitement = existingTraitement.get();
 
         updatedTraitement.setNom(traitementProxy.getNom());
-        updatedTraitement.setIdPatient(traitementProxy.getIdPatient());
 
 
         if(traitementProxy.getIdSalle()!=0){
@@ -76,12 +81,13 @@ public class TraitementService {
             updatedTraitement.setRendezvous(existingRendezvous.get());
         }
 
-        if(traitementProxy.getMatriculeMedecin()!=0){
+       /* if(traitementProxy.getMatriculeMedecin()!=0){
             Optional<Medecin> existingMedecin = medecinRepository.findById(traitementProxy.getMatriculeMedecin());
             updatedTraitement.setMedecin(existingMedecin.get());
-        }
+        }*/
         return traitementRepository.save(updatedTraitement);
     }
+
 
     public List<Traitement> findTraitementByidPatient(long id){
         List<Traitement> traitementPatient = traitementRepository.findTraitementByIdPatient(id);

@@ -26,7 +26,7 @@ public abstract class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_utilisateur")
-    private Integer id;
+    private Long id;
     @NotBlank(message = "Prenom ne doit pas etre null")
     private String prenom;
     @NotBlank(message = "Nom ne doit pas etre vide(null)")

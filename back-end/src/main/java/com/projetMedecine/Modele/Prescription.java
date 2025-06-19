@@ -18,7 +18,7 @@ public class Prescription {
     @Column(name="id_prescription")
     Long idPrescription;
     private String medicament;
-    private LocalDate date;
+    private String date;
 
     @ManyToOne(
             fetch = FetchType.LAZY

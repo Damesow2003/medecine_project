@@ -1,6 +1,5 @@
 package com.projetMedecine.Service;
 
-import com.projetMedecine.Exceptions.PaiementNotFound;
 import com.projetMedecine.Exceptions.RendezvousBadRequest;
 import com.projetMedecine.Modele.*;
 import com.projetMedecine.Repository.*;
@@ -13,27 +12,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 
 @Service
 @Transactional
 public class RendezVousService {
     @Autowired
-    private NotificationRepository notificationRepository;
+    private NotificationService notificationService;
     @Autowired
-    private PrescriptionRepository prescriptionRepository;
-    @Autowired
-    private PaiementRepository paiementRepository;
+    private PrescriptionService prescriptionService;
+
     @Autowired
     private RendezVousRepository rendezVousRepository;
     @Autowired
     private CabinetMedicalRepository cabinetMedicalRepository;
+    @Autowired
+    private DtoConversion dtoConversion;
 
-    public Iterable<Rendezvous> listRendezvous(){
-        return rendezVousRepository.findAll();
+    public List<RendezvousDTO> listRendezvous(){
+        return StreamSupport.stream(rendezVousRepository.findAll().spliterator(),false)
+                .map(/*this::convertToRendezvousDTO*/ rendezvous -> this.dtoConversion.convertToRendezvousDTO(rendezvous))
+                .collect(Collectors.toList());
     }
-    public Optional<Rendezvous> getRendezvousById(long id){
-        return rendezVousRepository.findById(id);
+    public Optional<RendezvousDTO> getRendezvousById(long id){
+        return rendezVousRepository.findById(id)
+                .map(rendezvous -> this.dtoConversion.convertToRendezvousDTO(rendezvous));
     }
+
+
+
+
     public Rendezvous saveRendezvous(RendezvousProxy rendezvousProxy){
         Rendezvous newRendezvous = new Rendezvous();
 

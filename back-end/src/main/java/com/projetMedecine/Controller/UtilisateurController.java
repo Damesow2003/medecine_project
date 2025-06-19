@@ -1,6 +1,7 @@
 package com.projetMedecine.Controller;
 
 
+import com.projetMedecine.Exceptions.MedecinNotFound;
 import com.projetMedecine.Exceptions.UtilisateurNotFound;
 import com.projetMedecine.Modele.*;
 import com.projetMedecine.Service.AdminService;
@@ -26,7 +27,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -47,12 +50,41 @@ public class UtilisateurController {
     JwtEncoder jwtEncoder;
 
     @GetMapping("/patients")
-    public Iterable<Patient> getUtilisateur(){
-        return patientService.getAllPatient();
+    public ResponseEntity<List<PatientDTO>> getUtilisateur(){
+        List<PatientDTO> patientInfoDTOS = patientService.getAllPatients();
+        if(patientInfoDTOS.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(patientInfoDTOS);
     }
+    @GetMapping("/patients/{id}")
+    public ResponseEntity<Optional<PatientDTO>> getUtilisateurById(@PathVariable Long id){
+        Optional<PatientDTO> patientInfoDTO = patientService.getPatientById(id);
+        if(patientInfoDTO.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(patientInfoDTO);
+    }
+
     @GetMapping("/medecins")
-    public Iterable<Medecin> getMedecin(){
-        return medecinService.getAllMedecin();
+    public ResponseEntity<List<MedecinDTO>> getMedecins(){
+        List<MedecinDTO> medecinDTOList = medecinService.getAllMedecin();
+        if(medecinDTOList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ResponseEntity.ok(medecinDTOList);
+    }
+
+    @GetMapping("/medecins/{id}")
+    public ResponseEntity<MedecinDTO> getMedecinById(@PathVariable Long id){
+        Optional<MedecinDTO> medecinDTO = medecinService.getMedecinByMatricule(id);
+         MedecinDTO existingMedecinDTO = medecinDTO.get();
+
+        if(existingMedecinDTO==null){
+            throw new MedecinNotFound("Aucun medecin associes a cette id: "+id+" est introuvable");
+        }
+
+        return ResponseEntity.ok(existingMedecinDTO);
     }
     @GetMapping("/admins")
     public Iterable<Admin> getAdmins(){return adminService.listAdmin();}
@@ -82,7 +114,7 @@ public class UtilisateurController {
 
         return Map.of("access-token",jwt);
     }
-    @PostMapping("/signup")
+   @PostMapping("/signup")
     public ResponseEntity<?> saveUser(@RequestBody UtilisateurRequest userRequest) {
         Utilisateur user;
 

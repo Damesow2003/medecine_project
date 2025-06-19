@@ -1,15 +1,16 @@
 package com.projetMedecine.Service;
 
-import com.projetMedecine.Modele.CabinetMedical;
-import com.projetMedecine.Modele.Salle;
-import com.projetMedecine.Modele.SalleProxy;
+import com.projetMedecine.Modele.*;
 import com.projetMedecine.Repository.CabinetMedicalRepository;
 import com.projetMedecine.Repository.SalleRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -18,13 +19,19 @@ public class SalleService {
     SalleRepository salleRepository;
     @Autowired
     CabinetMedicalRepository cabinetMedicalRepository;
+    @Autowired
+    private DtoConversion dtoConversion;
+    public List<SalleDTO> salles() {
+        return StreamSupport.stream(this.salleRepository.findAll().spliterator(),false)
+                .map(/*this::convertToSalleDTO*/ salle->this.dtoConversion.convertToSalleDTO(salle))
+                .collect(Collectors.toList());
 
-    public Iterable<Salle> salles() {
-        return salleRepository.findAll();
     }
 
-    public Optional<Salle> salle(long id) {
-        return salleRepository.findById(id);
+
+    public Optional<SalleDTO> salle(long id) {
+        return salleRepository.findById(id)
+                .map(salle -> this.dtoConversion.convertToSalleDTO(salle));
     }
 
     public Salle saveSalle(SalleProxy salleProxy) {

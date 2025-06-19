@@ -7,6 +7,6 @@ import java.time.LocalDate;
 @Data
 public class NotificationProxy {
     private String contenu;
-    private LocalDate dateEnvoie;
+    private String dateEnvoie;
     private Long idRendezvous;
 }

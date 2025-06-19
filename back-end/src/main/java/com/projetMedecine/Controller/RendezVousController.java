@@ -32,12 +32,18 @@ public class RendezVousController {
     private NotificationService notificationService;
 
     @GetMapping("/rendezvous")
-    public Iterable<Rendezvous> getRendezvous(){
-        return rendezVousService.listRendezvous();
+    public ResponseEntity<List<RendezvousDTO>> getRendezvous(){
+        List<RendezvousDTO> rendezvousDTOList =  rendezVousService.listRendezvous();
+
+        if(rendezvousDTOList.isEmpty()){
+            throw new RendezvousBadRequest("Aucun rendezvpis disponible!!");
+        }
+
+        return ResponseEntity.ok(rendezvousDTOList);
     }
     @GetMapping("/rendezvous/{id}")
-    public ResponseEntity<Optional> getOnlyRendezvous(@PathVariable Long id){
-        Optional<Rendezvous> rendezvous = rendezVousService.getRendezvousById(id);
+    public ResponseEntity<Optional<RendezvousDTO>> getOnlyRendezvous(@PathVariable Long id){
+        Optional<RendezvousDTO> rendezvous = rendezVousService.getRendezvousById(id);
 
         if(rendezvous.isEmpty()){
             throw new RendezvousNotFound("Le rendezvous avec l' id"+id+" est introuvable");
