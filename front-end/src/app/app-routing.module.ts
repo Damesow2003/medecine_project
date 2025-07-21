@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:'dashbord',loadChildren:()=>import('./dashbord/dashbord.module').then(m=>m.DashbordModule)},
   {path:'auth',loadChildren:()=>import('./authentification/authentification.module').then(m=>m.AuthentificationModule)},
   {path:'medecins', loadChildren:()=>import('./medecin/medecin.module').then(m=>m.MedecinModule)},
+  {path:'patient', loadChildren:()=>import('./patient/patient.module').then(m=>m.PatientModule)},
   {path:'salles', loadChildren:()=>import('./salle/salle.module').then(m=>m.SalleModule)},
   {path:'not-authorized',component:NotAuthorizedComponent},
   {path:'**',redirectTo:'/'},

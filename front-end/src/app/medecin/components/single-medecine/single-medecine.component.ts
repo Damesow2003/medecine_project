@@ -35,4 +35,7 @@ export class SingleMedecineComponent implements OnInit {
     )
   }
 
+    Onprint() {
+        window.print()
+    }
 }

@@ -93,9 +93,9 @@
                             </h2>
                             <div id="collapseCabinet" class="accordion-collapse collapse" data-bs-parent="#medecinAccordion">
                                 <div class="accordion-body">
-                                    <ng-container *ngIf="medecin.cabinetMedicals.length; else noCabinet">
+                                    <ng-container *ngIf="medecin?.cabinets?.length; else noCabinet">
                                         <div class="list-group">
-                                            <div *ngFor="let cabinet of medecin.cabinetMedicals" class="list-group-item">
+                                            <div *ngFor="let cabinet of medecin.cabinets" class="list-group-item">
                                                 <h5 class="mb-1">{{ cabinet.nom }}</h5>
                                                 <p class="mb-1">{{ cabinet.adresse }}</p>
                                                 <p>Test</p>
@@ -113,7 +113,7 @@
                         </div>
         <!-- Footer with Action Buttons -->
         <div class="card-footer bg-light d-flex justify-content-between">
-            <button class="btn btn-outline-secondary">
+            <button class="btn btn-outline-secondary" (click)="Onprint()">
                 <i class="fas fa-print me-1"></i> Imprimer
             </button>
             <div>

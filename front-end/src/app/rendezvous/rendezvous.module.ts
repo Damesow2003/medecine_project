@@ -11,6 +11,7 @@ import { PaiementComponent } from './components/paiement/paiement.component';
 import { NewRendezvousComponent } from './components/new-rendezvous/new-rendezvous.component';
 import {CabinetService} from "../cabinets/services/cabinet.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import { RendezvousPatientComponent } from './components/rendezvous-patient/rendezvous-patient.component';
 
 
 
@@ -19,7 +20,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     RendezvousListComponent,
     RendezvousListItemComponent,
     PaiementComponent,
-    NewRendezvousComponent
+    NewRendezvousComponent,
+    RendezvousPatientComponent
   ],
   imports: [
     CommonModule,

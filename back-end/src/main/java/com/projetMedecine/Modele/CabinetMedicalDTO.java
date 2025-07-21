@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class CabinetMedicalDTO {
-    private Long id;
+    private Long idCabinet;
     private String adresse;
     private String nom;
     private String imageUrl;

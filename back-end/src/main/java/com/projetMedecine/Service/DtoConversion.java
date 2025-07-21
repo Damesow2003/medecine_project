@@ -11,7 +11,7 @@ public class DtoConversion {
 
     public CabinetMedicalDTO convertToCabinetMedicalDTO(CabinetMedical cabinet) {
         CabinetMedicalDTO cabinetMedicalDTO = new CabinetMedicalDTO();
-        cabinetMedicalDTO.setId(cabinet.getIdCabinet());
+        cabinetMedicalDTO.setIdCabinet(cabinet.getIdCabinet());
         cabinetMedicalDTO.setAdresse(cabinet.getAdresse());
         cabinetMedicalDTO.setNom(cabinet.getNom());
         cabinetMedicalDTO.setImageUrl(cabinet.getImageUrl());

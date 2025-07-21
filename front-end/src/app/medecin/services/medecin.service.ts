@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {BehaviorSubject, delay, filter, map, Observable, take, tap} from "rxjs";
+import {BehaviorSubject, catchError, delay, filter, map, Observable, of, Subject, take, tap} from "rxjs";
 import {Medecin} from "../modeles/medecin.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment.development";
+import {RendezvousModel} from "../../rendezvous/modeles/rendezvous.model";
 
 @Injectable()
 export class MedecinService {
@@ -10,6 +11,7 @@ export class MedecinService {
     private lastMedecinLoad = 0
     _loading$ = new BehaviorSubject<boolean>(false);
     _medecins$ =  new BehaviorSubject<Medecin[]>([]);
+    _error$ = new Subject<string>()
 
     get medecins$(){
         return this._medecins$.asObservable();
@@ -38,7 +40,7 @@ export class MedecinService {
         ).subscribe();
     }
 
-    getMedecinByMatricule(matricule: number): Observable<Medecin | undefined> {
+    getMedecinByMatricule(matricule: number): Observable<Medecin> {
         if(!this.lastMedecinLoad){
             this.getMedecinsFromServer();
         }
@@ -47,5 +49,33 @@ export class MedecinService {
             filter((medecin): medecin is Medecin => medecin !== undefined),
             take(1)
         );
+    }
+    getRendezvousByMedecin(matricule: number, cabinetId: number): Observable<RendezvousModel[]> {
+        // Création des params et headers
+        const params = new HttpParams()
+            .set('cabinetId', cabinetId.toString());
+
+        const headers = new HttpHeaders()
+            .set('Content-Type', 'application/json');
+
+        const options = {
+            headers: headers,
+            params: params
+        };
+
+        return this.http.get<RendezvousModel[]>(
+            `${environment.apiUrl}/api/medecins/${matricule}/rendezvous`,
+            options
+        ).pipe(
+            catchError(err => {
+                console.error('Erreur lors de la récupération des rendez-vous:', err);
+                this._error$.next("Erreur du chargement de rendez-vous");
+                return of([]);
+            })
+        );
+    }
+    //clear cache
+    clearCache(): void{
+        this.lastMedecinLoad = 0;
     }
 }

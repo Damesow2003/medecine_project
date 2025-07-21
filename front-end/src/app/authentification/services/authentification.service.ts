@@ -16,6 +16,7 @@ export class AuthentificationService{
   password!:string;
   accessToken!:any;
   roles!:any;
+  id!:any;
 
   constructor(private http:HttpClient,
               private router:Router,
@@ -81,6 +82,7 @@ export class AuthentificationService{
     let jwtdecoder:any = jwtDecode(this.accessToken);
     this.username = jwtdecoder.sub;
     this.roles = jwtdecoder.scope;
+    this.id = jwtdecoder.id;
     if (typeof window != 'undefined'){window.localStorage.setItem('jwt-token',this.accessToken)};
   }
 

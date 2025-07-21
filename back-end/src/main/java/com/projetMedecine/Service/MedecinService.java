@@ -22,8 +22,11 @@ public class MedecinService {
                 .map(/*this::convertToMedecinDTO*/ medecin -> this.dtoConversion.convertToMedecinDTO(medecin))
                 .collect(Collectors.toList());
     }
-
-
+    public List<MedecinDTO> getMedecinByRole(String role) {
+        return medecinRepository.findMedecinByRole(role).stream()
+                .map(medecin -> this.dtoConversion.convertToMedecinDTO(medecin))
+                .collect(Collectors.toList());
+    }
 
     public Optional<MedecinDTO> getMedecinByMatricule(Long matricule){
       return medecinRepository.findById(matricule).map(medecin -> this.dtoConversion.convertToMedecinDTO(medecin));
@@ -32,5 +35,6 @@ public class MedecinService {
     public Medecin savedMedecin(Medecin saveMedecin){
         return medecinRepository.save(saveMedecin);
     }
+
 
 }

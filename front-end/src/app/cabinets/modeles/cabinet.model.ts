@@ -1,7 +1,7 @@
 import {RendezvousModel} from "../../rendezvous/modeles/rendezvous.model";
 
 export class CabinetModel{
-  id!:number;
+  idCabinet!:number;
   adresse!:string;
   nom!:string;
   imageUrl!:string;

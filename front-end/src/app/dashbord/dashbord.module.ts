@@ -6,6 +6,7 @@ import { CabinetDashbordComponent } from './components/cabinet-dashbord/cabinet-
 import {ShareModule} from "../share/share.module";
 import { PatientDashbordComponent } from './components/patient-dashbord/patient-dashbord.component';
 import { MedecineDashbordComponent } from './components/medecine-dashbord/medecine-dashbord.component';
+import {MedecinModule} from "../medecin/medecin.module";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MedecineDashbordComponent } from './components/medecine-dashbord/medeci
   imports: [
     CommonModule,
     DashbordRoutingModule,
-    ShareModule
+    ShareModule,
+      MedecinModule
   ]
 })
 export class DashbordModule { }

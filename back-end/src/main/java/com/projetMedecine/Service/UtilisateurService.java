@@ -15,7 +15,7 @@ public class UtilisateurService {
     public Utilisateur savedUser(Utilisateur user){
         return utilisateurRepository.save(user);
     }
-    public Utilisateur recuperCompte(String email){
+    public Utilisateur getUserByEmail(String email){
         return utilisateurRepository.findByEmail(email);
     }
 }

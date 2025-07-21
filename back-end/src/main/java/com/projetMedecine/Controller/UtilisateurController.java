@@ -4,6 +4,7 @@ package com.projetMedecine.Controller;
 import com.projetMedecine.Exceptions.MedecinNotFound;
 import com.projetMedecine.Exceptions.UtilisateurNotFound;
 import com.projetMedecine.Modele.*;
+import com.projetMedecine.Repository.UtilisateurRepository;
 import com.projetMedecine.Service.AdminService;
 import com.projetMedecine.Service.MedecinService;
 import com.projetMedecine.Service.PatientService;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
@@ -38,7 +40,8 @@ public class UtilisateurController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private UtilisateurService utilisateurService;
+    /*private UtilisateurService utilisateurService;*/
+    private UtilisateurRepository utilisateurRepository;
 
     @Autowired
     private PatientService patientService;
@@ -98,12 +101,30 @@ public class UtilisateurController {
         Instant instant = Instant.now();
         String scope = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(" "));
 
+        //Recuperer l'utilisateur depuis l'objet principal
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        System.out.println(userDetails.getUsername());
+        Utilisateur utilisateur = utilisateurRepository.findByUsername(userDetails.getUsername());
+
+        if(utilisateur.getRole()=="medecin"&& utilisateur.getId()!=null){
+           return null;
+        }
+
+        if(utilisateur==null){
+            throw new RuntimeException("Utilisateur non trouvee");
+        }
+
+        System.out.println("ID: "+ utilisateur.getId());
+
+
+
         JwtClaimsSet claimsSet = JwtClaimsSet
                 .builder()
                 .issuer("self")
                 .expiresAt(instant.plus(1, ChronoUnit.DAYS))
                 .subject(username)
                 .claim("scope",scope)
+                .claim("id", utilisateur.getId())
                 .build();
         JwtEncoderParameters jwtEncoderParameters =
                 JwtEncoderParameters.from(
@@ -169,7 +190,7 @@ public class UtilisateurController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/forget-password")
+  /*  @GetMapping("/forget-password")
     public ResponseEntity<Utilisateur> getAccount(@RequestParam String email){
         Utilisateur existingUser = utilisateurService.recuperCompte(email);
 
@@ -177,7 +198,7 @@ public class UtilisateurController {
             throw new UtilisateurNotFound("Cette utilisateur n'existe pas");
         }
         return ResponseEntity.ok(existingUser);
-    }
+    }*/
 
     private BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

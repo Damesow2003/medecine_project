@@ -25,36 +25,24 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.crypto.spec.SecretKeySpec;
+import java.util.List;
 
 @org.springframework.context.annotation.Configuration
 @EnableWebSecurity
 public class Configuration {
+    @Autowired
+    CustomConfig customConfig;
 
-   /* @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin("*"); // Ajouter l'origine autorisée
-        corsConfiguration.addAllowedMethod("*"); // Autoriser toutes les méthodes HTTP
-        corsConfiguration.addAllowedHeader("*"); // Autoriser tous les en-têtes
-        corsConfiguration.setAllowCredentials(false); // Ne pas Permettre les cookies partagés si nécessaire
-        // corsConfiguration.setExposedHeaders(List.of("x-auth-token")); // Décommentez si nécessaire
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        // Permettre les requêtes préalables CORS
-        corsConfiguration.addAllowedMethod("OPTIONS"); // Ajouter OPTIONS
-        corsConfiguration.setMaxAge(3600L); // Durée de validité du cache des prérequis CORS
-
-        return source;
-    }
-*/
-   @Autowired
-   CustomConfig customConfig;
 
     private final String secretKey= "04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb";
-    @Bean
+   /* @Bean
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
+       *//* corsConfiguration.setAllowedHeaders(List.of(
+                "Content-Type",
+                "Authorization",
+                "X-Cabinet-ID"
+        ));*//*
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.addAllowedOrigin("*");
@@ -63,7 +51,48 @@ public class Configuration {
         source.registerCorsConfiguration("/**",corsConfiguration);
 
         return source;
+    }*/
+
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+
+        // Configuration des headers autorisés (spécifiques plutôt que *)
+        corsConfiguration.setAllowedHeaders(List.of(
+                "Content-Type",
+                "Authorization"
+                //"X-Cabinet-ID"  // Header personnalisé requis
+        ));
+
+        // Méthodes HTTP autorisées
+        corsConfiguration.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+        ));
+
+        // Origines autorisées (à restreindre en production)
+        corsConfiguration.setAllowedOrigins(List.of(
+                "http://localhost:4200",  // Angular dev
+                "https://votre-domaine.com"  // Production
+        ));
+
+        // Headers exposés au frontend
+      /*  corsConfiguration.setExposedHeaders(List.of(
+                "X-Cabinet-ID"
+        ));
+*/
+        // Autorise les credentials (cookies, auth)
+       // corsConfiguration.setAllowCredentials(true);
+
+        // Durée de cache des pré-vérifications CORS
+        corsConfiguration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration); // Appliqué uniquement aux routes /api
+
+        return source;
     }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

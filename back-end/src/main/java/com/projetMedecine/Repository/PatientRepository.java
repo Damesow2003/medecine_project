@@ -12,4 +12,7 @@ import java.util.List;
 public interface PatientRepository extends JpaRepository<Patient,Long> {
    /* @Query(value = "SELECT * FROM Patient p WHERE p.id_patient= :idTraitement",nativeQuery = true)
     List<Patient> findPatientByTraitement(@Param("idTraitement") Long idTraitement);*/
+
+    @Query("SELECT DISTINCT p FROM Patient p JOIN p.traitements t WHERE t.medecin.matricule = :matricule")
+    List<Patient> findPatientByMedecinMatricule(@Param("matricule") Long matricule);
 }

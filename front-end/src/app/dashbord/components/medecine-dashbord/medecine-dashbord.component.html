@@ -8,11 +8,18 @@
             <li class="active">
                 <a href="#"><i class="fas fa-home fa-fw me-3"></i> Dashboard</a>
             </li>
-            <li>
-                <a href="#"><i class="fas fa-calendar-check fa-fw me-3"></i> Mes Rendez-vous</a>
+            <li *ngIf="(medecin$ | async) as medecin; else noCabinet">
+                <a [routerLink]="['/medecins', medecin.matricule, 'rendezvous']">
+                    <i class="fas fa-calendar-check fa-fw me-3"></i> Mes Rendez-vous
+                </a>
             </li>
+            <ng-template #noCabinet>
+                <li class="disabled">
+                    <a><i class="fas fa-calendar-times fa-fw me-3"></i> Aucun cabinet disponible</a>
+                </li>
+            </ng-template>
             <li>
-                <a href="#"><i class="fas fa-notes-medical fa-fw me-3"></i> Prescriptions</a>
+                <a><i class="fas fa-notes-medical fa-fw me-3"></i> Prescriptions</a>
             </li>
             <li>
                 <a href="#"><i class="fas fa-users fa-fw me-3"></i> Mes Patients</a>
@@ -22,11 +29,11 @@
             </li>
         </ul>
         <div class="sidebar-footer">
-            <div class="user-profile">
-                <img src="https://via.placeholder.com/40" alt="Photo médecin" class="profile-img">
+            <div class="user-profile" *ngIf="medecin$ | async as medecin">
+                <img [src]="'https://via.placeholder.com/40'" alt="Photo médecin" class="profile-img">
                 <div class="profile-info">
-                    <span class="name">Dr. Diallo</span>
-                    <span class="role">Cardiologue</span>
+                    <span class="name">Dr. {{medecin.prenom}} {{medecin.nom}}</span><br>
+                    <span class="role">{{medecin.specialite}}</span>
                 </div>
             </div>
         </div>

@@ -31,6 +31,7 @@ public class Patient  extends Utilisateur{
   private Rendezvous rendezvous;
 
   @OneToMany(
+          mappedBy = "patient",
           fetch = FetchType.LAZY,
           cascade = {
                   CascadeType.MERGE,

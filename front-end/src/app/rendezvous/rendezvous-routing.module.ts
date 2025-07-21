@@ -4,11 +4,13 @@ import {RendezvousListComponent} from "./components/rendezvous-list/rendezvous-l
 import {RendezvousResolver} from "./resolvers/rendezvous.resolver";
 import {PaiementComponent} from "./components/paiement/paiement.component";
 import {NewRendezvousComponent} from "./components/new-rendezvous/new-rendezvous.component";
+import {RendezvousPatientComponent} from "./components/rendezvous-patient/rendezvous-patient.component";
 
 const routes: Routes = [
   {path:'',component:RendezvousListComponent,resolve:{rendezvousList:RendezvousResolver}},
   {path:'paiement/:id',component:PaiementComponent},
   {path:'new',component:NewRendezvousComponent},
+  {path:'rendezvous-patient',component:RendezvousPatientComponent}
 ];
 
 @NgModule({
